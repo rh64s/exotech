@@ -32,6 +32,19 @@ export default defineConfig({
         }),
     ]),
     server: {
+        // в контейнере слушаем IPv4-wildcard, чтобы порт был доступен через docker-proxy;
+        // origin задаёт URL, который Laravel пишет в public/hot (иначе туда попадает [::]:5173)
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        origin: 'http://127.0.0.1:5173',
+        // при заданном origin laravel-vite-plugin ставит этот же origin в CORS,
+        // из-за чего ESM-модули со страницы localhost:8000 блокируются — разрешаем localhost/127.0.0.1
+        cors: {
+            origin: [
+                /^https?:\/\/(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+            ],
+        },
         watch: {
             ignored: [
                 '**/.agents/**',
