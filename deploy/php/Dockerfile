@@ -1,7 +1,10 @@
 # #####################PHP
 
-FROM php:8.4-fpm-alpine AS php-fpm
+FROM php:8.4-fpm-alpine AS php-target
+USER root
 WORKDIR /var/www/html
+
+# ARG DEV=false
 
 RUN apk add --no-cache \
     curl \
@@ -26,15 +29,24 @@ ENV LD_PRELOAD=/usr/lib/preloadable_libiconv.so
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Copy composer files first
 COPY . .
 
 RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+RUN composer install --optimize-autoloader --no-interaction
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+# Copy package files for frontend
+RUN npm ci
 
-USER www-data
+# Copy rest of the app
+COPY --chown=www-data:www-data . /var/www/html/
+
+# Build frontend assets
+RUN npm run build
+
+# Run the application
 EXPOSE 9000
-CMD ["php-fpm"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=9000"]
