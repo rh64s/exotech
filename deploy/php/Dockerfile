@@ -36,17 +36,24 @@ RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN composer install --optimize-autoloader --no-interaction
+# RUN composer install --optimize-autoloader --no-interaction
+
+COPY ./deploy/php/entrypoint.sh /bin/entrypoint.sh
+RUN chmod +x /bin/entrypoint.sh
 
 # Copy package files for frontend
-RUN npm ci
+# RUN npm ci
 
 # Copy rest of the app
 COPY --chown=www-data:www-data . /var/www/html/
 
 # Build frontend assets
-RUN npm run build
+# RUN npm run build
 
 # Run the application
 EXPOSE 9000
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=9000"]
+EXPOSE 5173
+# CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php-fpm"]
+# CMD ["npm", "run", "dev", "--", "--host"]
+ENTRYPOINT ["/bin/entrypoint.sh"]

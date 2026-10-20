@@ -1,0 +1,19 @@
+services:
+    db:
+        image: mysql:8.0
+        container_name: exo-db
+        restart: on-failure
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
+            MYSQL_DATABASE: ${DB_DATABASE:-laravel}
+            MYSQL_USER: ${DB_USERNAME:-laravel}
+            MYSQL_PASSWORD: ${DB_PASSWORD:-laravel}
+        ports:
+            - "3306:3306"
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 10s
+            retries: 10
+
+volumes:
+    db-data:
