@@ -41,7 +41,5 @@ RUN chmod +x /bin/entrypoint.sh
 COPY --chown=www-data:www-data . /var/www/html/
 
 EXPOSE 9000
-EXPOSE 5173
-# CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
 CMD ["php-fpm"]
 ENTRYPOINT ["/bin/entrypoint.sh"]

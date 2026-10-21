@@ -32,7 +32,7 @@ defineOptions({
             <div class="grid gap-2">
                 <Label for="name">Name</Label>
                 <Input id="name" type="text" required v-focus :tabindex="1" autocomplete="name" name="name"
-                    placeholder="Full name" />
+                    placeholder="Full nameeeeeeeeeee" />
                 <InputError :message="errors.name" />
             </div>
 

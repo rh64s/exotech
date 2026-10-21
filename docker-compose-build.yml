@@ -4,40 +4,37 @@ services:
     app:
         build:
             context: .
-            dockerfile: ./deploy/php/Dockerfile
+            dockerfile: ./deploy/build/php/Dockerfile
 
         container_name: exo-app
         restart: no
         volumes:
             - .:/var/www/html
             - backend_vendor:/var/www/html/vendor
-        # depends_on:
-        #     db:
-        #         condition: service_healthy
+        depends_on:
+            db:
+                condition: service_healthy
         networks:
             - app-network
-        ports:
-            # - "127.0.0.1:8000:8000"
-            - "127.0.0.1:5173:5173"
-        # healthcheck:
-        #     test: ["CMD", "php", "artisan", "--help"]
-        #     timeout: 20s
-        #     retries: 40
+        healthcheck:
+            test: ["CMD", "php", "artisan", "--help"]
+            timeout: 20s
+            retries: 40
 
     nginx:
         build:
             context: .
-            dockerfile: ./deploy/nginx/Dockerfile
+            dockerfile: ./deploy/build/nginx/Dockerfile
         container_name: exo-nginx
         restart: unless-stopped
         ports:
             - "80:80"
         volumes:
             - .:/var/www/html:ro
-            - ./deploy/nginx/conf.d/nginx.conf:/etc/nginx/conf.d/default.conf
-        # depends_on:
-        #     app:
-        #         condition: service_healthy
+            - ./deploy/build/nginx/conf.d/nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            app:
+                condition: service_healthy
         networks:
             - app-network
 
@@ -54,10 +51,10 @@ services:
             - "127.0.0.1:3306:3306"
         networks:
             - app-network
-        # healthcheck:
-        #     test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-        #     timeout: 10s
-        #     retries: 10
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 10s
+            retries: 10
 
 volumes:
     db-data:
