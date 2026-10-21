@@ -8,7 +8,7 @@ chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 cd /var/www/html
 
 rm -f public/hot
-#фоновый npm
+php artisan migrate
 npm run dev &
 
 exec "$@"

@@ -35,7 +35,7 @@ RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
 
 # RUN composer install --optimize-autoloader --no-interaction
 
-COPY ./deploy/php/entrypoint.sh /bin/entrypoint.sh
+COPY ./deploy/build/php/entrypoint.sh /bin/entrypoint.sh
 RUN chmod +x /bin/entrypoint.sh
 
 COPY --chown=www-data:www-data . /var/www/html/

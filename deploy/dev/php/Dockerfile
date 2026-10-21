@@ -34,7 +34,7 @@ RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 
-COPY ./deploy/php/entrypoint.sh /bin/entrypoint.sh
+COPY ./deploy/dev/php/entrypoint.sh /bin/entrypoint.sh
 RUN chmod +x /bin/entrypoint.sh
 
 COPY --chown=www-data:www-data . /var/www/html/
