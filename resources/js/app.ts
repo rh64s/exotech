@@ -20,5 +20,7 @@ void createInertiaApp({
     progress: {
         color: "#4B5563",
     },
-    layout: (name, page) => AppLayout,
+    layout: () => {
+        return AppLayout;
+    },
 });

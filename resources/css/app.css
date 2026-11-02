@@ -9,3 +9,77 @@
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 }
+
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+:root {
+    --content-width: 1440px;
+    --color-base: #0F2027;
+    --color-second: #B4C8D0;
+    --color-surface: #17313B;
+    --color-hover: #D5EDF6;
+
+    --color-text-light: #f5fDF6;
+    --color-text-dark: #0F2027;
+
+    --text-h1: 4rem;
+    --text-h2: 3rem;
+    --text-p: 1.2rem;
+
+}
+
+.text-p {
+    font-size: var(--text-p)
+}
+
+.text-h1 {
+    font-size: var(--text-h1)
+}
+
+.text-h2 {
+    font-size: var(--text-h2)
+}
+
+/* body { */
+/*     display: grid; */
+/*     grid-template-columns: 1fr; */
+/*     grid-template-rows: 1fr 1fr 1fr; */
+/*     width: 100vw; */
+/*     justify-items: center; */
+/*     justify-content: center; */
+/*     align-content: space-between; */
+/*     min-height: 100vh; */
+/* } */
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+main {
+    width: var(--content-width);
+    height: 100%;
+    min-height: 90vh;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    min-height: 500px;
+    width: 100%;
+    background-color: var(--color-surface);
+    color: var(--color-second);
+}
+
+.footer_content {
+    width: var(--content-width);
+}
