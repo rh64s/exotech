@@ -5,13 +5,11 @@ WORKDIR /var/www/html
 # ARG DEV=false
 
 RUN apk add --no-cache \
-    curl \
     unzip \
     zip \
     libzip-dev \
     icu-dev \
     libxml2-dev \
-    mysql-client \
     gnu-libiconv \
     npm
 
@@ -33,6 +31,7 @@ RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+RUN composer install
 
 COPY ./deploy/dev/php/entrypoint.sh /bin/entrypoint.sh
 RUN chmod +x /bin/entrypoint.sh

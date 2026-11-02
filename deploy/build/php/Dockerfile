@@ -5,13 +5,11 @@ WORKDIR /var/www/html
 # ARG DEV=false
 
 RUN apk add --no-cache \
-    curl \
     unzip \
     zip \
     libzip-dev \
     icu-dev \
     libxml2-dev \
-    mysql-client \
     gnu-libiconv \
     npm
 
