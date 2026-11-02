@@ -6,5 +6,5 @@ const store = useUserStore();
 </script>
 
 <template>
-    <p> да w</p>
+    <p>да w</p>
 </template>

@@ -18,30 +18,29 @@
 
 :root {
     --content-width: 1440px;
-    --color-base: #0F2027;
-    --color-second: #B4C8D0;
-    --color-surface: #17313B;
-    --color-hover: #D5EDF6;
+    --color-base: #0f2027;
+    --color-second: #b4c8d0;
+    --color-surface: #17313b;
+    --color-hover: #d5edf6;
 
-    --color-text-light: #f5fDF6;
-    --color-text-dark: #0F2027;
+    --color-text-light: #f5fdf6;
+    --color-text-dark: #0f2027;
 
     --text-h1: 4rem;
     --text-h2: 3rem;
     --text-p: 1.2rem;
-
 }
 
 .text-p {
-    font-size: var(--text-p)
+    font-size: var(--text-p);
 }
 
 .text-h1 {
-    font-size: var(--text-h1)
+    font-size: var(--text-h1);
 }
 
 .text-h2 {
-    font-size: var(--text-h2)
+    font-size: var(--text-h2);
 }
 
 /* body { */

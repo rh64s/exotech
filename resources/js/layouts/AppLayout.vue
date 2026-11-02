@@ -1,9 +1,5 @@
 <script setup lang="ts">
-
 import { defineStore } from 'pinia';
-
-
-
 </script>
 
 <template>
@@ -54,6 +50,5 @@ nav {
     flex-direction: row;
     gap: 14px;
     color: var(--color-text-light);
-
 }
 </style>

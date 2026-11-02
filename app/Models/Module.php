@@ -64,7 +64,6 @@ class Module extends Model
         if ($this->id !== $module->id) {
             $this->compatibleModules()->attach($module->id);
         } else {
-
         }
     }
 
