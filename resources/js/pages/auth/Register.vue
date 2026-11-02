@@ -42,7 +42,7 @@ defineOptions({
                     :tabindex="1"
                     autocomplete="name"
                     name="name"
-                    placeholder="Full nameeeeeeeeeee"
+                    placeholder="Full name"
                 />
                 <InputError :message="errors.name" />
             </div>

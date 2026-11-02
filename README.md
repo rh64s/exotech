@@ -18,6 +18,21 @@ docker compose --file docker-compose-dev.yml up -d --build
 docker compose --file docker-compose-build.yml up -d --build
 ```
 
+#### только бд
+
+Чтобы запустить только базу данных, а приложение самостоятельно не в контейнере:
+
+```sh
+docker compose --file docker-compose-only-db.yml up -d
+```
+
+## Команды
+
+```sh
+cp .env.example .env
+php artisan migrate # либо migrate:fresh, чтобы очистить, а потом заполнить
+```
+
 Стэк:
 
 - mysql v8
