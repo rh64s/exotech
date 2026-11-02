@@ -18,8 +18,8 @@ services:
             - app-network
         healthcheck:
             test: ['CMD', 'php', 'artisan', '--help']
-            timeout: 20s
-            retries: 40
+            timeout: 5s
+            retries: 50
 
     nginx:
         build:
@@ -45,7 +45,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: root_password
             MYSQL_DATABASE: ${DB_DATABASE:-laravel}
-            MYSQL_USER: laravel
+            MYSQL_USER: ${DB_USERNAME:-laravel}
             MYSQL_PASSWORD: ${DB_PASSWORD:-laravel}
         ports:
             - '127.0.0.1:3306:3306'

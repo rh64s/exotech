@@ -26,6 +26,7 @@ ENV LD_PRELOAD=/usr/lib/preloadable_libiconv.so
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY . .
+
 RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
