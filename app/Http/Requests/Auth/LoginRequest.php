@@ -23,8 +23,22 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => ['string'],
-            'password' => ['string'],
+            'login' => ['required', 'string'],
+            'password' => ['required', 'string'],
+            'remember' => ['boolean'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'login.required' => 'Укажите email или телефон.',
+            'password.required' => 'Укажите пароль.',
         ];
     }
 }

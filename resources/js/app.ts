@@ -1,6 +1,6 @@
 import { createInertiaApp } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
-import { AppLayout } from './layouts';
+import { AppLayout } from './widgets/layouts';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pinia = createPinia();

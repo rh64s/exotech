@@ -1,58 +1,66 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "./additional/button.css";
+@import "./additional/island.css";
+@import "./additional/fast.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-@theme inline {
-    --font-sans:
-        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+@font-face {
+    font-family: "Manrope";
+    src: url("./assets/fonts/Manrope-VariableFont_wght.ttf");
 }
 
 * {
     padding: 0;
     margin: 0;
-    font-size: 14px;
+    font-size: 10px;
 }
 
 :root {
     --content-width: 1440px;
-    --color-base: #0f2027;
-    --color-second: #b4c8d0;
-    --color-surface: #17313b;
+    --color-accent: #4343f9;
+    --color-second: #5cdc86;
+    --color-surface: #2b2f37;
+    --color-surface-light: #c3d3ef;
+    --color-mid: #203043;
     --color-hover: #d5edf6;
+
+    --opacity: 80%;
 
     --color-text-light: #f5fdf6;
     --color-text-dark: #0f2027;
 
-    --text-h1: 4rem;
-    --text-h2: 3rem;
-    --text-p: 1.2rem;
+    --text-h1: 6rem;
+    --text-h2: 4rem;
+    --text-h3: 2.5rem;
+    --text-p: 1.6rem;
+    --shadow: 8px 8px 20px #0e151970;
 }
 
-.text-p {
+.text-p,
+p {
     font-size: var(--text-p);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.text-h1 {
+.text-h1,
+h1 {
     font-size: var(--text-h1);
+    font-family: "Manrope", "Arial";
 }
 
-.text-h2 {
+.text-h2,
+h2 {
     font-size: var(--text-h2);
+    font-family: "Manrope", "Arial";
 }
 
-/* body { */
-/*     display: grid; */
-/*     grid-template-columns: 1fr; */
-/*     grid-template-rows: 1fr 1fr 1fr; */
-/*     width: 100vw; */
-/*     justify-items: center; */
-/*     justify-content: center; */
-/*     align-content: space-between; */
-/*     min-height: 100vh; */
-/* } */
+.text-h3,
+h3 {
+    font-size: var(--text-h3);
+    font-family: "Manrope", "Arial";
+}
 
 #app {
     display: flex;
@@ -65,6 +73,10 @@
 }
 
 main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-content: center;
     width: var(--content-width);
     height: 100%;
     min-height: 90vh;
@@ -82,3 +94,30 @@ footer {
 .footer_content {
     width: var(--content-width);
 }
+
+
+
+.noise {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: black;
+    mask-image: url("./assets/noise/noise.svg");
+    /* mask-composite: add; */
+    mask-repeat: repeat;
+    mask-size: 50px;
+    opacity: 25%;
+    z-index: 1;
+}
+.noise ~ * {
+    z-index: 2;
+}
+
+
+.imageHolder > img {
+    height: 100%;
+    width: auto;
+}
+
