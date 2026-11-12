@@ -66,16 +66,16 @@ const errorId = computed(() => `${props.id}-error`);
 }
 
 .form-field__required {
-    color: #ff8a8a;
+    color: var(--color-error);
 }
 
 .form-field__input {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid transparent;
+    border: 1px solid var(--color-mid);
     border-radius: 12px;
-    background-color: var(--color-mid);
-    color: var(--color-text-light);
+    background-color: var(--color-surface);
+    color: var(--color-primary);
     font-size: var(--text-p);
     outline: none;
     transition:
@@ -85,20 +85,20 @@ const errorId = computed(() => `${props.id}-error`);
 
 .form-field__input::placeholder {
     color: var(--color-second);
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .form-field__input:focus {
-    border-color: var(--color-hover);
-    box-shadow: 0 0 0 3px rgb(213 237 246 / 15%);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgb(44 83 100 / 20%);
 }
 
 .form-field__input_error {
-    border-color: #ff8a8a;
+    border-color: var(--color-error);
 }
 
 .form-field__error {
     font-size: 1.3rem;
-    color: #ff8a8a;
+    color: var(--color-error);
 }
 </style>

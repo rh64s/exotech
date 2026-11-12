@@ -28,28 +28,28 @@
 
 .btn-primary:hover {
     background-color: var(--color-hover);
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
 }
 
 .btn-primary:active {
-    background-color: var(--color-mid);
+    background-color: var(--color-primary);
     color: var(--color-text-light);
 }
 
 .btn-secondary {
     background-color: transparent;
-    border-color: var(--color-hover);
-    color: var(--color-text-light);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .btn-secondary:hover {
-    background-color: var(--color-hover);
-    color: var(--color-text-dark);
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
 }
 
 .btn-ghost {
     background-color: transparent;
-    color: var(--color-text-light);
+    color: var(--color-primary);
 }
 
 .btn.low-padding {
@@ -58,12 +58,14 @@
 
 .btn-ghost:hover {
     background-color: var(--color-hover);
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
 }
 
 .btn:disabled,
 .btn.is-disabled {
-    opacity: 0.5;
+    background-color: var(--color-disabled);
+    border-color: transparent;
+    color: var(--color-second);
     cursor: not-allowed;
     pointer-events: none;
 }

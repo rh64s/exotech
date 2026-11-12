@@ -79,9 +79,11 @@ function submit(): void {
     width: 100%;
     max-width: 440px;
     padding: 40px;
+    border: 1px solid var(--color-mid);
     border-radius: 24px;
-    background: linear-gradient(90deg, #58616b, #2d3237);
-    color: var(--color-text-light);
+    background: var(--gradient-primary);
+    color: var(--color-primary);
+    box-shadow: var(--shadow);
 }
 
 .auth__subtitle {
@@ -114,7 +116,11 @@ function submit(): void {
 }
 
 .auth__link {
-    color: var(--color-hover);
+    color: var(--color-accent);
     text-decoration: underline;
+}
+
+.auth__link:hover {
+    color: var(--color-hover);
 }
 </style>

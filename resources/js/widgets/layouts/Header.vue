@@ -49,6 +49,15 @@ onBeforeUnmount(() => {
             <Link :href="home.url()" class="logo text-p">ЭкзоТех</Link>
 
             <nav class="header__auth" aria-label="Авторизация">
+                <Button :href="login.url()" variant="ghost" low-padding>
+                    Каталог
+                </Button>
+                <Button :href="login.url()" variant="ghost" low-padding>
+                    Конструктор
+                </Button>
+                <Button :href="login.url()" variant="ghost" low-padding>
+                    Главная
+                </Button>
                 <template v-if="isGuest">
                     <Button :href="register.url()" variant="ghost" low-padding>
                         Регистрация
@@ -60,7 +69,7 @@ onBeforeUnmount(() => {
             </nav>
 
 
-            <button
+            <!-- <button
                 type="button"
                 class="header__burger"
                 :class="{ 'header__burger_open': isOpen }"
@@ -72,9 +81,9 @@ onBeforeUnmount(() => {
                 <span></span>
                 <span></span>
                 <span></span>
-            </button>
+            </button> -->
 
-            <Transition name="menu">
+            <!-- <Transition name="menu">
                 <nav
                     v-if="isOpen"
                     id="main-menu"
@@ -91,7 +100,7 @@ onBeforeUnmount(() => {
                         {{ link.label }}
                     </Link>
                 </nav>
-            </Transition>
+            </Transition> -->
         </div>
     </header>
 </template>
@@ -105,14 +114,14 @@ header {
     align-items: center;
     position: relative;
     z-index: 50;
-    color: var(--color-text-light);
+    color: var(--color-primary);
 }
 
 .header_div {
     position: relative;
     width: var(--content-width);
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 16px;
     background-color: var(--color-mid);
@@ -150,12 +159,16 @@ header {
     background-color: var(--color-accent);
 }
 
+.header__burger:hover span {
+    background-color: var(--color-text-light);
+}
+
 .header__burger span {
     display: block;
     width: 100%;
     height: 2px;
     border-radius: 2px;
-    background-color: var(--color-text-light);
+    background-color: var(--color-primary);
     transition:
         transform 0.2s ease,
         opacity 0.2s ease;
@@ -184,14 +197,14 @@ header {
     padding: 12px;
     border-radius: 16px;
     background-color: var(--color-surface);
-    box-shadow: 0 16px 40px rgb(15 32 39 / 35%);
+    box-shadow: 0 16px 40px rgb(15 32 39 / 15%);
     z-index: 60;
 }
 
 .header__menu-link {
     padding: 14px 16px;
     border-radius: 10px;
-    color: var(--color-text-light);
+    color: var(--color-primary);
     font-family: 'Manrope', 'Arial';
     font-size: var(--text-p);
     font-weight: 600;
@@ -203,7 +216,7 @@ header {
 
 .header__menu-link:hover {
     background-color: var(--color-mid);
-    color: var(--color-hover);
+    color: var(--color-accent);
 }
 
 .menu-enter-active,

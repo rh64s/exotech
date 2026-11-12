@@ -18,7 +18,7 @@ void createInertiaApp({
         app.use(pinia);
     },
     progress: {
-        color: '#4B5563',
+        color: '#2c5364',
     },
     layout: () => {
         return AppLayout;
