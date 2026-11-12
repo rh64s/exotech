@@ -9,7 +9,14 @@ import Button from '@/shared/ui/Button.vue';
         <div class="island island-gradient-light o-hidden relative">
             <div class="welcome__island__div-left">
                 <h2 class="text-h1">Экзоскелет,<br /><span class="text-h3">созданный только для Вас</span></h2>
-                <Button :href="'/constructor'">в конструктор</Button>
+                <div class="welcome__island__div-left_text">
+                    <p>Соберите свой экзоскелет или выберите готовую сборку.</p>
+                    <p>Сохраняйте прототипы и возвращайтесь к своим идеям.</p>
+                </div>
+                <div class="welcome__island_div-left_buttons">
+                    <Button :href="'/constructor'">Собрать экзоскелет</Button>
+                    <Button :href="'/catalog'" :variant="'ghost'">Смотреть каталог</Button>
+                </div>
             </div>
             <div class="welcome__island__div-right">
                 <div class="welcome__div-right__img imageHolder">
@@ -17,25 +24,26 @@ import Button from '@/shared/ui/Button.vue';
                 </div>
             </div>
         </div>
+        <hr>
         <div class="welcome_tasks">
-            <div class="welcome_tasks__1">
+            <div>
                 <p>1</p>
                 <div>
-                    <p>Под вашу задачу</p>
+                    <p class="text-h3">Под вашу задачу</p>
                     <p>Работа, движение, исследования</p>
                 </div>
             </div>
-            <div class="welcome_tasks__2">
+            <div>
                 <p>2</p>
                 <div>
-                    <p>Модульная система</p>
+                    <p class="text-h3">Модульная система</p>
                     <p>Выбирайте нужные зоны поддержки</p>
                 </div>
             </div>
-            <div class="welcome_tasks__3">
+            <div>
                 <p>3</p>
                 <div>
-                    <p>От идеи к прототипу</p>
+                    <p class="text-h3">От идеи к прототипу</p>
                     <p>Работа, движение, исследования</p>
                 </div>
             </div>
@@ -45,6 +53,39 @@ import Button from '@/shared/ui/Button.vue';
 </template>
 
 <style scoped>
+
+.section_welcome {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+}
+
+hr {
+    border-top: 2px solid var(--color-mid);
+    width: 95%;
+}
+
+.welcome_tasks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.welcome_tasks>div:nth-child(n+2) {
+    border-left: 2px solid var(--color-mid);
+    padding-left: 6rem;
+}
+
+.welcome_tasks>div {
+    display: flex;
+    gap: 2rem;
+}
+
+.welcome_tasks>div>p {
+    font-weight: bold;
+}
 
 .welcome__island__div-left {
     line-height: 0.75;
@@ -61,5 +102,17 @@ import Button from '@/shared/ui/Button.vue';
     width: 100%;
     overflow: hidden;
     border-radius: 24px;
+}
+
+.welcome__island__div-left_text {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--color-second)
+}
+
+.welcome__island_div-left_buttons {
+    display: flex;
+    gap: 1rem;
 }
 </style>

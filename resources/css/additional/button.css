@@ -5,12 +5,12 @@
     width: fit-content;
     justify-content: center;
     gap: 8px;
-    padding: 12px 24px;
+    padding: 16px 30px;
     border: 1px solid transparent;
     border-radius: 12px;
     font-family: "Manrope", "Arial";
     font-size: var(--text-p);
-    font-weight: bold;
+    font-weight: 600;
     line-height: 1;
     text-decoration: none;
     cursor: pointer;

@@ -19,12 +19,6 @@
 
 :root {
     --content-width: 1440px;
-    /* --color-accent: #4343f9;
-    --color-second: #5cdc86;
-    --color-surface: #2b2f37;
-    --color-surface-light: #c3d3ef;
-    --color-mid: #203043;
-    --color-hover: #d5edf6; */
 
     --color-base: #f2f7f9; /** page background */
     --color-mid: #e3eff3; /** gradinents/panels, second buttons */
@@ -48,6 +42,8 @@
     --text-h3: 2.5rem;
     --text-p: 1.6rem;
     --shadow: 8px 8px 20px #0e151950;
+
+    --content-gap-1: 40px;
 }
 
 body {
@@ -92,7 +88,7 @@ h3 {
 main {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--content-gap-1);
     align-content: center;
     width: var(--content-width);
     height: 100%;

@@ -109,10 +109,11 @@ onBeforeUnmount(() => {
 header {
     width: 100%;
     display: flex;
-    margin-top: 8px;
+    margin-top: 20px;
+    top: 10px;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: sticky;
     z-index: 50;
     color: var(--color-primary);
 }
@@ -124,9 +125,12 @@ header {
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    background-color: var(--color-mid);
+    background-color: rgba(from var(--color-mid) r g b / 50%);
+    backdrop-filter: blur(10px);
     padding: 16px;
     border-radius: 16px;
+    box-shadow: var(--shadow);
+
 }
 
 .header__auth {
