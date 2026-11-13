@@ -58,7 +58,9 @@ function submit(): void {
 
             <p class="auth__footer">
                 Нет аккаунта?
-                <Link :href="register.url()" class="auth__link">Зарегистрироваться</Link>
+                <Link :href="register.url()" class="auth__link"
+                    >Зарегистрироваться</Link
+                >
             </p>
         </div>
     </section>

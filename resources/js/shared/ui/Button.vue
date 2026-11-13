@@ -26,7 +26,8 @@ const props = withDefaults(
 
 /** Ссылка на внешний ресурс: Inertia-переход тут не нужен. */
 const isExternalLink = computed(
-    () => props.external || /^(https?:\/\/|mailto:|tel:)/.test(props.href ?? ''),
+    () =>
+        props.external || /^(https?:\/\/|mailto:|tel:)/.test(props.href ?? ''),
 );
 
 /** Кнопка без href, обычная ссылка на внешний ресурс или Inertia-переход. */
@@ -47,7 +48,12 @@ const tag = computed(() => {
         :disabled="href ? undefined : disabled"
         :aria-disabled="href && disabled ? 'true' : undefined"
         :tabindex="href && disabled ? -1 : undefined"
-        :class="['btn', `btn-${variant}`, { 'is-disabled': disabled }, { 'low-padding': lowPadding }]"
+        :class="[
+            'btn',
+            `btn-${variant}`,
+            { 'is-disabled': disabled },
+            { 'low-padding': lowPadding },
+        ]"
     >
         <slot></slot>
     </component>

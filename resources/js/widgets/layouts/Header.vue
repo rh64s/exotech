@@ -68,7 +68,6 @@ onBeforeUnmount(() => {
                 </template>
             </nav>
 
-
             <!-- <button
                 type="button"
                 class="header__burger"
@@ -130,7 +129,6 @@ header {
     padding: 16px;
     border-radius: 16px;
     box-shadow: var(--shadow);
-
 }
 
 .header__auth {

@@ -27,7 +27,9 @@ function submit(): void {
     <section class="auth">
         <div class="auth__card">
             <h1 class="text-h3">Регистрация</h1>
-            <p class="auth__subtitle">Создайте аккаунт, чтобы собирать свои экзоскелеты.</p>
+            <p class="auth__subtitle">
+                Создайте аккаунт, чтобы собирать свои экзоскелеты.
+            </p>
 
             <form class="auth__form" @submit.prevent="submit">
                 <div class="auth__row">
@@ -100,7 +102,11 @@ function submit(): void {
                 </div>
 
                 <Button type="submit" :disabled="form.processing">
-                    {{ form.processing ? 'Создаём аккаунт…' : 'Зарегистрироваться' }}
+                    {{
+                        form.processing
+                            ? 'Создаём аккаунт…'
+                            : 'Зарегистрироваться'
+                    }}
                 </Button>
             </form>
 
