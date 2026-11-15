@@ -40,12 +40,13 @@ class RegisterRequest extends FormRequest
      */
     public function messages(): array
     {
-        $requiredPrefix = "Укажите ";
+        $requiredPrefix = 'Укажите ';
+
         return [
-            'phone.required' => $requiredPrefix . 'телефон',
-            'email.required' => $requiredPrefix . 'почту',
-            'name.required' => $requiredPrefix . 'имя',
-            'surname.required' => $requiredPrefix . 'фамилию',
+            'phone.required' => $requiredPrefix.'телефон',
+            'email.required' => $requiredPrefix.'почту',
+            'name.required' => $requiredPrefix.'имя',
+            'surname.required' => $requiredPrefix.'фамилию',
             'phone.digits' => 'Телефон должен состоять из 11 цифр, например 79001234567.',
             'email.unique' => 'Пользователь с таким email уже зарегистрирован.',
             'password.confirmed' => 'Пароли не совпадают.',
