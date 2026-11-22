@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\MoonShine\Resources\Characteristic\CharacteristicResource;
+use App\MoonShine\Resources\Chat\ChatResource;
+use App\MoonShine\Resources\Message\MessageResource;
+use App\MoonShine\Resources\Module\ModuleResource;
+use App\MoonShine\Resources\ModuleCategory\ModuleCategoryResource;
+use App\MoonShine\Resources\ModuleCharacteristic\ModuleCharacteristicResource;
+use App\MoonShine\Resources\ModuleType\ModuleTypeResource;
+use App\MoonShine\Resources\Order\OrderResource;
+use App\MoonShine\Resources\Role\RoleResource;
+use App\MoonShine\Resources\Scheme\SchemeResource;
+use App\MoonShine\Resources\User\UserResource;
 use Illuminate\Support\ServiceProvider;
 use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
-use MoonShine\Laravel\DependencyInjection\MoonShine;
 use MoonShine\Laravel\DependencyInjection\MoonShineConfigurator;
-use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
-use App\MoonShine\Resources\MoonShineUserRole\MoonShineUserRoleResource;
-use App\MoonShine\Resources\User\UserResource;
-use App\MoonShine\Resources\ModuleType\ModuleTypeResource;
-use App\MoonShine\Resources\Module\ModuleResource;
-use App\MoonShine\Resources\Scheme\SchemeResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -24,16 +28,20 @@ class MoonShineServiceProvider extends ServiceProvider
     {
         $core
             ->resources([
-                MoonShineUserResource::class,
-                MoonShineUserRoleResource::class,
                 UserResource::class,
                 ModuleTypeResource::class,
                 ModuleResource::class,
+                ModuleCategoryResource::class,
                 SchemeResource::class,
+                CharacteristicResource::class,
+                ModuleCharacteristicResource::class,
+                ChatResource::class,
+                MessageResource::class,
+                OrderResource::class,
+                RoleResource::class,
             ])
             ->pages([
                 ...$core->getConfig()->getPages(),
-            ])
-        ;
+            ]);
     }
 }

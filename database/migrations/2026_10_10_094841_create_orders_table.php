@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('user_id')->constrained('users');
-            $table->decimal('price',
-                config('app.custom.money_range.total'),
-                config('app.custom.money_range.places')
-            );
+            $table->decimal('price', 10, 2);
             $table->timestamp('created_at');
         });
     }

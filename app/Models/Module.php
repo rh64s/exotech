@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * @property int $id
  * @property string $name
- * @property string $description
+ * @property string|null $description
  * @property string $price
  * @property int $module_type_id
  */
@@ -42,6 +42,21 @@ class Module extends Model
     public function moduleType(): BelongsTo
     {
         return $this->belongsTo(ModuleType::class);
+    }
+
+    /**
+     * Get the characteristics of the module.
+     *
+     * @return BelongsToMany<Characteristic, $this>
+     */
+    public function characteristics(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Characteristic::class,
+            'module_characteristics',
+            'module_id',
+            'characteristic_id',
+        )->withPivot('value');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ModuleCategory;
 use App\Models\ModuleType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,6 +20,8 @@ class ModuleTypeFactory extends Factory
     {
         return [
             'name' => fake()->unique()->word(),
+            'description' => fake()->optional()->paragraph(),
+            'category_id' => ModuleCategory::factory(),
         ];
     }
 }

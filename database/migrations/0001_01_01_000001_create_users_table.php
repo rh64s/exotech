@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name', 80);
-            $table->string('surname', 80);
-            $table->string('patronymic', 80)->nullable();
-            $table->string('phone', 11);
+            $table->string('name');
+            $table->string('surname');
+            $table->string('patronymic')->nullable();
             $table->string('email')->unique();
+            $table->string('phone', 11)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->softDeletes();
             $table->foreignId('role_id')->constrained('roles')->restrictOnDelete();
             $table->rememberToken();
+            $table->boolean('blocked')->default(false);
             $table->timestamps();
         });
 
@@ -33,7 +35,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->uuid('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');

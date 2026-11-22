@@ -20,6 +20,7 @@ class ChatFactory extends Factory
         return [
             'name' => fake()->sentence(3),
             'need_expert_help' => fake()->boolean(),
+            'is_active' => true,
             'created_at' => now(),
         ];
     }
@@ -31,6 +32,16 @@ class ChatFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'need_expert_help' => true,
+        ]);
+    }
+
+    /**
+     * Indicate that the chat is inactive.
+     */
+    public function inactive(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_active' => false,
         ]);
     }
 }

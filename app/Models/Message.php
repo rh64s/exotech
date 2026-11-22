@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $content
- * @property int|null $user_id
+ * @property string|null $user_id
  * @property int $chat_id
  */
 #[Fillable(['content', 'user_id', 'chat_id'])]

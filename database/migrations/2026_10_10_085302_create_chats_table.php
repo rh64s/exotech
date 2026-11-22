@@ -13,15 +13,10 @@ return new class extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
-            $table->boolean('need_expert_help');
-            $table->string('name');
-            $table->timestamp('created_at');
-        });
-
-        Schema::create('related_users_to_chat', function (Blueprint $table) {
-            $table->foreignUuid('user_id')->constrained('users');
-            $table->foreignId('chat_id')->constrained('chats');
-            $table->primary(['user_id', 'chat_id']);
+            $table->boolean('need_expert_help')->default(false);
+            $table->string('name')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
@@ -30,7 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('related_users_to_chat');
         Schema::dropIfExists('chats');
     }
 };

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
- * @property int|null $user_id
+ * @property string|null $user_id
  * @property string $name
  * @property string $description
  * @property bool $official

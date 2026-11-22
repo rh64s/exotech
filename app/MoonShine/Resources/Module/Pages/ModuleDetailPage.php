@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\Module\Pages;
 
-use MoonShine\Laravel\Pages\Crud\DetailPage;
-use MoonShine\Contracts\UI\ComponentContract;
-use MoonShine\UI\Components\Table\TableBuilder;
-use MoonShine\Contracts\UI\FieldContract;
+use App\MoonShine\Resources\Module\ModuleFields;
 use App\MoonShine\Resources\Module\ModuleResource;
+use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Contracts\UI\FieldContract;
+use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Support\ListOf;
-use MoonShine\UI\Fields\ID;
+use MoonShine\UI\Components\Table\TableBuilder;
 use Throwable;
-
 
 /**
  * @extends DetailPage<ModuleResource>
@@ -24,9 +23,15 @@ class ModuleDetailPage extends DetailPage
      */
     protected function fields(): iterable
     {
-        return [
-            ID::make(),
-        ];
+        return ModuleFields::only([
+            'id',
+            'name',
+            'description',
+            'price',
+            'module_type_id',
+            'created_at',
+            'updated_at',
+        ]);
     }
 
     protected function buttons(): ListOf
@@ -36,7 +41,6 @@ class ModuleDetailPage extends DetailPage
 
     /**
      * @param  TableBuilder  $component
-     *
      * @return TableBuilder
      */
     protected function modifyDetailComponent(ComponentContract $component): ComponentContract
@@ -46,34 +50,37 @@ class ModuleDetailPage extends DetailPage
 
     /**
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
     {
         return [
-            ...parent::topLayer()
+            ...parent::topLayer(),
         ];
     }
 
     /**
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
     {
         return [
-            ...parent::mainLayer()
+            ...parent::mainLayer(),
         ];
     }
 
     /**
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array
     {
         return [
-            ...parent::bottomLayer()
+            ...parent::bottomLayer(),
         ];
     }
 }

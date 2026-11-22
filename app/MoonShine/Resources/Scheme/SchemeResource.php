@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\Scheme;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Scheme;
-use App\MoonShine\Resources\Scheme\Pages\SchemeIndexPage;
-use App\MoonShine\Resources\Scheme\Pages\SchemeFormPage;
 use App\MoonShine\Resources\Scheme\Pages\SchemeDetailPage;
-
-use MoonShine\Laravel\Resources\ModelResource;
+use App\MoonShine\Resources\Scheme\Pages\SchemeFormPage;
+use App\MoonShine\Resources\Scheme\Pages\SchemeIndexPage;
 use MoonShine\Contracts\Core\PageContract;
+use MoonShine\Laravel\Resources\ModelResource;
 
 /**
  * @extends ModelResource<Scheme, SchemeIndexPage, SchemeFormPage, SchemeDetailPage>

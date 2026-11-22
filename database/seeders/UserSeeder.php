@@ -16,14 +16,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::createOrFirst([
-            'name' => 'admin',
-            'surname' => 'admin',
-            'patronymic' => 'admin',
-            'email' => 'email@notexists.com',
-            'password' => 'QWEasd123!@#',
-            'phone' => '81234123456',
-            'role_id' => Role::firstWhere(['name' => 'admin'])->id,
-        ]);
+        $roles = Role::where(['name' => 'client'])->orWhere(['name' => 'expert'])->get();
+
+        User::factory()
+            ->count(9)
+            ->create([
+                'role_id' => $roles->random()->id,
+            ]);
     }
 }

@@ -13,10 +13,11 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property bool $need_expert_help
- * @property string $name
+ * @property string|null $name
+ * @property bool $is_active
  * @property Carbon $created_at
  */
-#[Fillable(['name', 'need_expert_help'])]
+#[Fillable(['name', 'need_expert_help', 'is_active'])]
 class Chat extends Model
 {
     /** @use HasFactory<ChatFactory> */
@@ -38,6 +39,7 @@ class Chat extends Model
     {
         return [
             'need_expert_help' => 'boolean',
+            'is_active' => 'boolean',
         ];
     }
 
