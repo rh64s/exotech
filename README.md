@@ -2,43 +2,26 @@
 
 Проект с монолитной архитектурой. Сборка экзоскелетов по модулям, управление модулями.
 
-### Запуск
+## Описание
 
-#### dev
+Проект позволяет клиентам создавать модульные экзоскелеты с помощью конструктора и добавлять дополнительные модули. Как сборка ПК.
 
-Запуск в режиме `npm run dev` с полноценным **hot reload** 🤣.
+Клиенты могут задать вопрос эксперту в чат.
 
-```sh
-docker compose --file docker-compose-dev.yml up -d --build
-```
-
-#### builded
-
-Запуск с использованием статичных файлов `npm run build`
-
-```sh
-docker compose --file docker-compose-build.yml up -d --build
-```
-
-#### только бд
-
-Чтобы запустить только базу данных, а приложение самостоятельно не в контейнере:
-
-```sh
-docker compose --file docker-compose-only-db.yml up -d
-```
-
-## Команды
-
-```sh
-cp .env.example .env
-php artisan migrate # либо migrate:fresh, чтобы очистить, а потом заполнить
-```
-
-Стэк:
+### Стэк:
 
 - mysql v8
 - Laravel 13 (php 8.4)
     - MoonShine (админ-панель)
 - Vue 3 (throught Inertia.js)
     - Pinia
+
+## Запуск
+
+Вам потребуется **Docker**.
+
+`./vendor/sail/bin up -d`
+
+На 80 порту будет открыт сервер.
+Для `dev` разработки: `./vendor/sail/bin npm run dev`
+Для запсука `build`: `./vendor/sail/bin npm run build`

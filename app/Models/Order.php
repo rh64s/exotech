@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,22 +12,17 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property string $user_id
+ * @property int $user_id
  * @property string $price
+ * @property OrderStatus $status
  * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
-#[Fillable(['user_id', 'price'])]
+#[Fillable(['user_id', 'price', 'status'])]
 class Order extends Model
 {
     /** @use HasFactory<OrderFactory> */
     use HasFactory;
-
-    /**
-     * The name of the "updated at" column.
-     *
-     * @var string|null
-     */
-    public const UPDATED_AT = null;
 
     /**
      * Get the attributes that should be cast.
@@ -37,6 +33,7 @@ class Order extends Model
     {
         return [
             'price' => 'decimal:2',
+            'status' => OrderStatus::class,
         ];
     }
 

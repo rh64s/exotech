@@ -24,9 +24,14 @@ class ModuleCharacteristicSeeder extends Seeder
             return;
         }
 
-        ModuleCharacteristic::factory()
-            ->count(10)
-            ->recycle([$modules, $characteristics])
-            ->create();
+        $modules->each(function (Module $module) use ($characteristics): void {
+            $count = min(fake()->numberBetween(2, 4), $characteristics->count());
+
+            $characteristics->random($count)->each(
+                fn (Characteristic $characteristic) => ModuleCharacteristic::factory()
+                    ->forCharacteristic($characteristic)
+                    ->create(['module_id' => $module->id])
+            );
+        });
     }
 }

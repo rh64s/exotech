@@ -17,12 +17,22 @@ class MessageSeeder extends Seeder
      */
     public function run(): void
     {
+        $chats = Chat::query()->with('users')->get();
         $users = User::all();
-        $chats = Chat::all();
 
-        Message::factory()
-            ->count(10)
-            ->recycle([$users, $chats])
-            ->create();
+        if ($chats->isEmpty()) {
+            return;
+        }
+
+        $chats->each(function (Chat $chat) use ($users): void {
+            $participants = $chat->users->isNotEmpty() ? $chat->users : $users;
+
+            Message::factory()
+                ->count(3)
+                ->state(fn (): array => [
+                    'user_id' => $participants->isNotEmpty() ? $participants->random()->id : null,
+                ])
+                ->create(['chat_id' => $chat->id]);
+        });
     }
 }

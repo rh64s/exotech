@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compatible_modules', function (Blueprint $table) {
-            $table->timestamp('created_at')->useCurrent();
             $table->foreignId('module_id')->constrained('modules');
             $table->foreignId('compatible_module_id')->constrained('modules');
             $table->primary(['compatible_module_id', 'module_id']);

@@ -29,6 +29,8 @@ class ModuleDetailPage extends DetailPage
             'description',
             'price',
             'module_type_id',
+            'attachment_interface_id',
+            'body_zone_id',
             'created_at',
             'updated_at',
         ]);

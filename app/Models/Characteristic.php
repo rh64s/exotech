@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CharacteristicsType;
 use Database\Factories\CharacteristicFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
@@ -9,12 +10,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * @property int $id
  * @property string $name
  * @property string|null $unit
- * @property string $data_type
+ * @property CharacteristicsType $data_type
+ * @property-read (Pivot&object{value: string}) $pivot
  */
 #[Table(timestamps: false)]
 #[Fillable(['name', 'unit', 'data_type'])]
@@ -22,6 +25,18 @@ class Characteristic extends Model
 {
     /** @use HasFactory<CharacteristicFactory> */
     use HasFactory;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'data_type' => CharacteristicsType::class,
+        ];
+    }
 
     /**
      * Get the modules that have the characteristic.

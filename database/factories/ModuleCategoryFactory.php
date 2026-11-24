@@ -28,7 +28,7 @@ class ModuleCategoryFactory extends Factory
      */
     public function childOf(ModuleCategory $parent): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'parent_id' => $parent->id,
         ]);
     }

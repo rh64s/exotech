@@ -58,6 +58,6 @@ class Scheme extends Model
             'scheme_modules',
             'scheme_id',
             'module_id',
-        );
+        )->withPivot('parent_scheme_modules_id');
     }
 }

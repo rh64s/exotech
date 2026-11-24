@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +22,17 @@ class OrderFactory extends Factory
         return [
             'user_id' => User::factory(),
             'price' => fake()->randomFloat(2, 1, 100000),
-            'created_at' => now(),
+            'status' => fake()->randomElement(OrderStatus::values()),
         ];
+    }
+
+    /**
+     * Indicate the order status.
+     */
+    public function withStatus(OrderStatus $status): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => $status,
+        ]);
     }
 }

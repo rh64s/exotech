@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\AttachmentInterface;
+use App\Models\BodyZone;
 use App\Models\Module;
 use App\Models\ModuleType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,10 +19,15 @@ class ModuleSeeder extends Seeder
     public function run(): void
     {
         $moduleTypes = ModuleType::all();
+        $attachmentInterfaces = AttachmentInterface::all();
+        $bodyZones = BodyZone::all();
 
         Module::factory()
             ->count(10)
-            ->recycle($moduleTypes)
+            ->recycle([$moduleTypes, $attachmentInterfaces])
+            ->state(fn (): array => [
+                'body_zone_id' => $bodyZones->isNotEmpty() ? $bodyZones->random()->id : null,
+            ])
             ->create();
     }
 }

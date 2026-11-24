@@ -33,6 +33,8 @@ class ModuleFormPage extends FormPage
                 'description',
                 'price',
                 'module_type_id',
+                'attachment_interface_id',
+                'body_zone_id',
             ])),
         ];
     }

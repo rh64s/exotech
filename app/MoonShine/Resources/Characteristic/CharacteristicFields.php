@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\Characteristic;
 
+use App\Enums\CharacteristicsType;
 use App\MoonShine\Fields\FieldSet;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\UI\Fields\ID;
@@ -33,9 +34,10 @@ final class CharacteristicFields extends FieldSet
             'unit' => Text::make(self::LABELS['unit'], 'unit'),
             'data_type' => Select::make(self::LABELS['data_type'], 'data_type')
                 ->options([
-                    'string' => 'Строка',
-                    'number' => 'Число',
-                    'boolean' => 'Логическое',
+                    CharacteristicsType::String->value => 'Строка',
+                    CharacteristicsType::Integer->value => 'Целое число',
+                    CharacteristicsType::Float->value => 'Дробное число',
+                    CharacteristicsType::Boolean->value => 'Логическое',
                 ])
                 ->required(),
         ];

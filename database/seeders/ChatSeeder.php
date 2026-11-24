@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Chat;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,19 @@ class ChatSeeder extends Seeder
      */
     public function run(): void
     {
-        Chat::factory()->count(10)->create();
+        $chats = Chat::factory()->count(10)->create();
+        $users = User::all();
+
+        if ($users->isEmpty()) {
+            return;
+        }
+
+        $chats->each(function (Chat $chat) use ($users): void {
+            $count = min(fake()->numberBetween(2, 4), $users->count());
+
+            $chat->users()->syncWithoutDetaching(
+                $users->random($count)->pluck('id')->all(),
+            );
+        });
     }
 }

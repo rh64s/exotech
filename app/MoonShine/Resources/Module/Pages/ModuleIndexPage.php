@@ -33,6 +33,8 @@ class ModuleIndexPage extends IndexPage
             'name',
             'price',
             'module_type_id',
+            'attachment_interface_id',
+            'body_zone_id',
             'created_at',
         ]);
     }

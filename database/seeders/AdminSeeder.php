@@ -18,14 +18,16 @@ class AdminSeeder extends Seeder
     {
         $adminRole = Role::query()->where('name', 'admin')->firstOrFail();
 
-        User::factory()->create([
-            'surname' => 'admin',
-            'name' => 'admin',
-            'patronymic' => 'admin',
-            'email' => 'email@notexists.com',
-            'password' => 'QWEasd123!@#',
-            'phone' => '81234123456',
-            'role_id' => $adminRole->id,
-        ]);
+        User::firstOrCreate(
+            ['email' => 'email@notexists.com'],
+            [
+                'surname' => 'admin',
+                'name' => 'admin',
+                'patronymic' => 'admin',
+                'password' => 'QWEasd123!@#',
+                'phone' => '81234123456',
+                'role_id' => $adminRole->id,
+            ],
+        );
     }
 }

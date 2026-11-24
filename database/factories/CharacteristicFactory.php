@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CharacteristicsType;
 use App\Models\Characteristic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +21,7 @@ class CharacteristicFactory extends Factory
         return [
             'name' => fake()->unique()->words(2, true),
             'unit' => fake()->optional()->randomElement(['мм', 'см', 'Вт', 'В', 'кг', 'шт']),
-            'data_type' => fake()->randomElement(['string', 'integer', 'float', 'boolean']),
+            'data_type' => fake()->randomElement(CharacteristicsType::values()),
         ];
     }
 }

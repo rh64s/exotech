@@ -32,7 +32,7 @@ class SchemeFactory extends Factory
      */
     public function official(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'official' => true,
         ]);
     }
@@ -42,7 +42,7 @@ class SchemeFactory extends Factory
      */
     public function completed(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'completed' => true,
         ]);
     }

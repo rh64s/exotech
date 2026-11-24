@@ -31,6 +31,7 @@ class OrderFormPage extends FormPage
                 'id',
                 'user_id',
                 'price',
+                'status',
             ])),
         ];
     }

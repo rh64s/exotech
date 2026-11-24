@@ -31,7 +31,7 @@ class MessageFactory extends Factory
      */
     public function withoutUser(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'user_id' => null,
         ]);
     }

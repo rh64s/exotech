@@ -12,11 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('scheme_modules', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('scheme_id')
                 ->constrained('schemes', 'id')->cascadeOnDelete();
             $table->foreignId('module_id')
                 ->constrained('modules', 'id')->cascadeOnDelete();
-            $table->primary(['scheme_id', 'module_id']);
+            // к какому модулю прикреплено для древовидного крепления
+            $table->foreignId('parent_scheme_modules_id')->nullable()
+                ->constrained('scheme_modules')->nullOnDelete();
+
+            $table->unique(['scheme_id', 'module_id']);
         });
     }
 

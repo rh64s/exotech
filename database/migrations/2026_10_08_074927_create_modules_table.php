@@ -18,6 +18,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->timestamps();
             $table->foreignId('module_type_id')->constrained('module_types');
+            $table->foreignId('attachment_interface_id')->constrained('attachment_interfaces');
+            $table->foreignId('body_zone_id')->nullable()->constrained('body_zones');
         });
     }
 

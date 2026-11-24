@@ -16,12 +16,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = Role::where(['name' => 'client'])->orWhere(['name' => 'expert'])->get();
+        $roles = Role::query()->whereIn('name', ['client', 'expert'])->get();
+
+        if ($roles->isEmpty()) {
+            return;
+        }
 
         User::factory()
             ->count(9)
-            ->create([
+            ->state(fn (): array => [
                 'role_id' => $roles->random()->id,
-            ]);
+            ])
+            ->create();
     }
 }

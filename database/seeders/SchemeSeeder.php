@@ -22,5 +22,11 @@ class SchemeSeeder extends Seeder
             ->count(10)
             ->recycle($users)
             ->create();
+
+        Scheme::factory()
+            ->count(2)
+            ->official()
+            ->completed()
+            ->create(['user_id' => null]);
     }
 }

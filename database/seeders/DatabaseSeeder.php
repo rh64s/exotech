@@ -20,12 +20,16 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ModuleCategorySeeder::class,
             ModuleTypeSeeder::class,
+            BodyZoneSeeder::class,
+            AttachmentInterfaceSeeder::class,
             CharacteristicSeeder::class,
             ModuleSeeder::class,
+            CompatibleModuleSeeder::class,
             ModuleCharacteristicSeeder::class,
             ChatSeeder::class,
             MessageSeeder::class,
             SchemeSeeder::class,
+            SchemeModuleSeeder::class,
             OrderSeeder::class,
         ]);
     }

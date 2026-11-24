@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\Order;
 
+use App\Enums\OrderStatus;
 use App\MoonShine\Fields\FieldSet;
 use App\MoonShine\Resources\User\UserFields;
 use MoonShine\Contracts\UI\FieldContract;
@@ -21,7 +22,9 @@ final class OrderFields extends FieldSet
         'id' => 'ID',
         'user_id' => 'Пользователь',
         'price' => 'Стоимость',
+        'status' => 'Статус',
         'created_at' => 'Создан',
+        'updated_at' => 'Обновлён',
     ];
 
     /**
@@ -37,7 +40,16 @@ final class OrderFields extends FieldSet
             'price' => Number::make(self::LABELS['price'], 'price')
                 ->step(0.01)
                 ->required(),
+            'status' => Select::make(self::LABELS['status'], 'status')
+                ->options([
+                    OrderStatus::ON_CONSIDER->value => 'На рассмотрении',
+                    OrderStatus::IN_PROGRESS->value => 'В работе',
+                    OrderStatus::COMPLETED->value => 'Завершён',
+                    OrderStatus::DENIED->value => 'Отклонён',
+                ])
+                ->required(),
             'created_at' => Date::make(self::LABELS['created_at'], 'created_at'),
+            'updated_at' => Date::make(self::LABELS['updated_at'], 'updated_at'),
         ];
     }
 }

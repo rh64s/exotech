@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('related_users_to_chat', function (Blueprint $table) {
-            $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('chat_id')->constrained('chats');
             $table->unique(['user_id', 'chat_id']);
             $table->primary(['user_id', 'chat_id']);

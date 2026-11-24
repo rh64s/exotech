@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\AttachmentInterface;
+use App\Models\BodyZone;
 use App\Models\Module;
 use App\Models\ModuleType;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,6 +25,18 @@ class ModuleFactory extends Factory
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 1, 100000),
             'module_type_id' => ModuleType::factory(),
+            'attachment_interface_id' => AttachmentInterface::factory(),
+            'body_zone_id' => null,
         ];
+    }
+
+    /**
+     * Indicate the body zone the module belongs to.
+     */
+    public function forBodyZone(BodyZone $bodyZone): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'body_zone_id' => $bodyZone->id,
+        ]);
     }
 }

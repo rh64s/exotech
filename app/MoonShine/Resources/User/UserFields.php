@@ -61,7 +61,7 @@ final class UserFields extends FieldSet
     }
 
     /**
-     * @return array<string, string>
+     * @return array<int, string>
      */
     public static function options(): array
     {

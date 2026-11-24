@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -15,8 +16,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string|null $description
  * @property string $price
  * @property int $module_type_id
+ * @property int $attachment_interface_id
+ * @property int|null $body_zone_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'description', 'price', 'module_type_id'])]
+#[Fillable(['name', 'description', 'price', 'module_type_id', 'attachment_interface_id', 'body_zone_id'])]
 class Module extends Model
 {
     /** @use HasFactory<ModuleFactory> */
@@ -42,6 +47,26 @@ class Module extends Model
     public function moduleType(): BelongsTo
     {
         return $this->belongsTo(ModuleType::class);
+    }
+
+    /**
+     * Get the attachment interface of the module.
+     *
+     * @return BelongsTo<AttachmentInterface, $this>
+     */
+    public function attachmentInterface(): BelongsTo
+    {
+        return $this->belongsTo(AttachmentInterface::class);
+    }
+
+    /**
+     * Get the body zone the module belongs to.
+     *
+     * @return BelongsTo<BodyZone, $this>
+     */
+    public function bodyZone(): BelongsTo
+    {
+        return $this->belongsTo(BodyZone::class);
     }
 
     /**
@@ -76,10 +101,11 @@ class Module extends Model
 
     public function addCompatibleModule(Module $module): void
     {
-        if ($this->id !== $module->id) {
-            $this->compatibleModules()->attach($module->id);
-        } else {
+        if ($this->is($module)) {
+            return;
         }
+
+        $this->compatibleModules()->syncWithoutDetaching($module->id);
     }
 
     /**
@@ -94,6 +120,6 @@ class Module extends Model
             'scheme_modules',
             'module_id',
             'scheme_id',
-        );
+        )->withPivot('parent_scheme_modules_id');
     }
 }

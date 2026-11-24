@@ -32,6 +32,7 @@ class OrderIndexPage extends IndexPage
             'id',
             'user_id',
             'price',
+            'status',
             'created_at',
         ]);
     }
