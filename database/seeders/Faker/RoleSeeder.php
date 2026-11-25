@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Faker;
 
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;

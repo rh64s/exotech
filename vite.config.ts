@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { bunny } from 'laravel-vite-plugin/fonts';
 import { defineConfig, lazyPlugins } from 'vite-plus';
+import vueDevTools from 'vite-plugin-vue-devtools';
 
 export default defineConfig({
     plugins: lazyPlugins(() => [
@@ -17,6 +18,7 @@ export default defineConfig({
                 }),
             ],
         }),
+        vueDevTools({ appendTo: 'resources/js/app.ts' }),
         inertia(),
         tailwindcss(),
         vue({

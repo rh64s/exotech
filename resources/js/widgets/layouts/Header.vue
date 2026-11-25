@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { home, login, register } from '@/routes';
+import { home, login, register, catalog } from '@/routes';
 import { Button } from '@/shared/ui';
 
 const page = usePage();
 const isOpen = ref(false);
 
 const isGuest = computed(() => !page.props.auth.user);
-
-const navLinks = [
-    { label: 'Главная', href: '/' },
-    { label: 'Каталог', href: '/catalog' },
-    { label: 'Конструктор', href: '/constructor' },
-];
 
 function toggle(): void {
     isOpen.value = !isOpen.value;
@@ -49,14 +43,14 @@ onBeforeUnmount(() => {
             <Link :href="home.url()" class="logo text-p">ЭкзоТех</Link>
 
             <nav class="header__auth" aria-label="Авторизация">
-                <Button :href="login.url()" variant="ghost" low-padding>
+                <Button :href="home.url()" variant="ghost" low-padding>
+                    Главная
+                </Button>
+                <Button :href="catalog.url()" variant="ghost" low-padding>
                     Каталог
                 </Button>
                 <Button :href="login.url()" variant="ghost" low-padding>
                     Конструктор
-                </Button>
-                <Button :href="login.url()" variant="ghost" low-padding>
-                    Главная
                 </Button>
                 <template v-if="isGuest">
                     <Button :href="register.url()" variant="ghost" low-padding>

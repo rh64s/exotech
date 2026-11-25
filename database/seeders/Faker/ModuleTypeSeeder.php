@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Faker;
 
-use App\Models\Characteristic;
+use App\Models\ModuleType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CharacteristicSeeder extends Seeder
+class ModuleTypeSeeder extends Seeder
 {
     use WithoutModelEvents;
 
@@ -15,6 +15,6 @@ class CharacteristicSeeder extends Seeder
      */
     public function run(): void
     {
-        Characteristic::factory()->count(10)->create();
+        ModuleType::factory()->count(10)->create();
     }
 }

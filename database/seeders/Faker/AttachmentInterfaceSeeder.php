@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Faker;
 
 use App\Enums\AttachmentInterfaceType;
 use App\Models\AttachmentInterface;

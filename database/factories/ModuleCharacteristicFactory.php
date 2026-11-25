@@ -20,10 +20,12 @@ class ModuleCharacteristicFactory extends Factory
      */
     public function definition(): array
     {
+        $type = fake()->randomElement(CharacteristicsType::cases());
+
         return [
-            'value' => fake()->word(),
+            ...$this->valuesForType($type),
             'module_id' => Module::factory(),
-            'characteristic_id' => Characteristic::factory(),
+            'characteristic_id' => Characteristic::factory()->state(['data_type' => $type]),
         ];
     }
 
@@ -34,20 +36,23 @@ class ModuleCharacteristicFactory extends Factory
     {
         return $this->state(fn (): array => [
             'characteristic_id' => $characteristic->id,
-            'value' => $this->valueForType($characteristic->data_type),
+            ...$this->valuesForType($characteristic->data_type),
         ]);
     }
 
     /**
-     * Generate a value that is valid for the given characteristic data type.
+     * @return array<string, string|int|float|bool|null>
      */
-    private function valueForType(CharacteristicsType $type): string
+    private function valuesForType(CharacteristicsType $type): array
     {
-        return match ($type) {
+        $values = array_fill_keys(CharacteristicsType::valueColumns(), null);
+        $values[$type->valueColumn()] = match ($type) {
             CharacteristicsType::String => fake()->word(),
-            CharacteristicsType::Integer => (string) fake()->numberBetween(1, 1000),
-            CharacteristicsType::Float => (string) fake()->randomFloat(2, 0.1, 1000),
-            CharacteristicsType::Boolean => fake()->boolean() ? 'true' : 'false',
+            CharacteristicsType::Integer => fake()->numberBetween(1, 1000),
+            CharacteristicsType::Float => fake()->randomFloat(2, 0.1, 1000),
+            CharacteristicsType::Boolean => fake()->boolean(),
         };
+
+        return $values;
     }
 }

@@ -11,12 +11,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
- * @property string $value
+ * @property string $value_string
+ * @property bool $value_bool
+ * @property float $value_float
+ * @property int $value_int
  * @property int $module_id
  * @property int $characteristic_id
  */
 #[Table(timestamps: false)]
-#[Fillable(['value', 'module_id', 'characteristic_id'])]
+#[Fillable(['value_string', 'value_bool', 'value_float', 'value_int', 'module_id', 'characteristic_id'])]
 class ModuleCharacteristic extends Model
 {
     /** @use HasFactory<ModuleCharacteristicFactory> */

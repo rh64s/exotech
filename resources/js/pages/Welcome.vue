@@ -8,6 +8,7 @@ import {
     SupportTypeCard,
 } from '@/widgets/welcome';
 import CatalogSearch from '@/assets/svg/CatalogSearch.vue';
+import Arrow from '@/assets/svg/Arrow.vue';
 
 type Task = {
     index: string;
@@ -36,17 +37,17 @@ type SupportType = {
 
 const tasks: Task[] = [
     {
-        index: '01',
+        index: '1',
         title: 'Под вашу задачу',
         description: 'Работа, движение, исследования',
     },
     {
-        index: '02',
+        index: '2',
         title: 'Модульная система',
         description: 'Выбирайте нужные зоны поддержки',
     },
     {
-        index: '03',
+        index: '3',
         title: 'От идеи к прототипу',
         description: 'Сохраняйте и сравнивайте сборки',
     },
@@ -87,7 +88,7 @@ const readyBuilds: ReadyBuild[] = [
 
 const supportTypes: SupportType[] = [
     {
-        index: '01',
+        index: '1',
         label: 'Passive',
         title: 'Пассивный',
         subtitle: 'Механическая поддержка',
@@ -96,7 +97,7 @@ const supportTypes: SupportType[] = [
         note: 'Без электропривода',
     },
     {
-        index: '02',
+        index: '2',
         label: 'Active',
         title: 'Активный',
         subtitle: 'Управляемое усилие',
@@ -106,7 +107,7 @@ const supportTypes: SupportType[] = [
         featured: true,
     },
     {
-        index: '03',
+        index: '3',
         label: 'Hybrid',
         title: 'Гибридный',
         subtitle: 'Сочетание подходов',
@@ -135,7 +136,7 @@ const supportTypes: SupportType[] = [
                     </p>
                     <div class="welcome-hero__actions">
                         <Button href="#" external>Собрать экзоскелет</Button>
-                        <a href="#" class="text-link">Смотреть каталог →</a>
+                        <a href="#" class="text-link">Смотреть каталог <Arrow></Arrow></a>
                     </div>
                 </div>
 
@@ -193,7 +194,7 @@ const supportTypes: SupportType[] = [
                         под себя.
                     </p>
                 </div>
-                <a href="#" class="text-link">Весь каталог →</a>
+                <a href="#" class="text-link">Весь каталог <Arrow></Arrow></a>
             </div>
 
             <div class="ready-builds__toolbar">
@@ -364,7 +365,7 @@ const supportTypes: SupportType[] = [
 .welcome-tasks__index {
     padding-top: 4px;
     color: var(--color-second);
-    font-size: 1.1rem;
+    font-size: 2rem;
     font-weight: 600;
     line-height: 1.4rem;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\MoreRealistic;
 
 use App\Models\ModuleCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,12 +15,8 @@ class ModuleCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $parents = ModuleCategory::factory()->count(5)->create();
-
-        $parents->each(
-            fn (ModuleCategory $parent) => ModuleCategory::factory()
-                ->childOf($parent)
-                ->create()
-        );
+        foreach (['Несущие конструкции', 'Пассивная поддержка', 'Электроприводы', 'Измерительные модули'] as $name) {
+            ModuleCategory::firstOrCreate(['name' => $name]);
+        }
     }
 }

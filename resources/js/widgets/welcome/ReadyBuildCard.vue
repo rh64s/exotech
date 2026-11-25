@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Arrow from '@/assets/svg/Arrow.vue';
+
 withDefaults(
     defineProps<{
         /** Куда ведёт карточка готовой сборки. */
@@ -28,7 +30,7 @@ withDefaults(
             <p class="build-card__label">{{ label }}</p>
             <h3 class="text-h3 build-card__title">{{ title }}</h3>
             <p class="build-card__description">{{ description }}</p>
-            <a :href="href" class="build-card__link"> Посмотреть сборку → </a>
+            <a :href="href" class="build-card__link"> Посмотреть сборку <Arrow></Arrow></a>
         </div>
     </article>
 </template>

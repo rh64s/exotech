@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
+import { vMaska } from "maska/vue";
 
-const model = defineModel<string>({ default: '' });
+const model = defineModel<string>({ default: "" });
 
 const props = withDefaults(
     defineProps<{
@@ -10,6 +11,8 @@ const props = withDefaults(
         /** Уникальный id поля (нужен для label и ошибок). */
         id: string;
         type?: string;
+        /** маска на текст */
+        mask?: string;
         /** Текст ошибки валидации. */
         error?: string;
         autocomplete?: string;
@@ -18,7 +21,7 @@ const props = withDefaults(
         autofocus?: boolean;
     }>(),
     {
-        type: 'text',
+        type: "text",
         required: false,
         autofocus: false,
     },
@@ -36,6 +39,7 @@ const errorId = computed(() => `${props.id}-error`);
         <input
             :id="id"
             v-model="model"
+            v-maska="mask"
             :type="type"
             :autocomplete="autocomplete"
             :placeholder="placeholder"
@@ -59,7 +63,7 @@ const errorId = computed(() => `${props.id}-error`);
 }
 
 .form-field__label {
-    font-family: 'Manrope', 'Arial';
+    font-family: "Manrope", "Arial";
     font-size: var(--text-p);
     font-weight: 600;
     color: var(--color-second);

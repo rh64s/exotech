@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property string $name
  * @property string|null $unit
  * @property CharacteristicsType $data_type
- * @property-read (Pivot&object{value: string}) $pivot
+ * @property-read Pivot $pivot
  */
 #[Table(timestamps: false)]
 #[Fillable(['name', 'unit', 'data_type'])]
@@ -50,7 +50,7 @@ class Characteristic extends Model
             'module_characteristics',
             'characteristic_id',
             'module_id',
-        )->withPivot('value');
+        )->withPivot(CharacteristicsType::valueColumns());
     }
 
     /**

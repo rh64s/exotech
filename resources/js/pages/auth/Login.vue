@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { store } from '@/actions/App/Http/Controllers/Auth/LoginController';
-import { create as register } from '@/actions/App/Http/Controllers/Auth/RegisterController';
+import { register } from '@/routes/index';
 import { Button, FormField } from '@/shared/ui';
 
 const form = useForm({

@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('module_characteristics', function (Blueprint $table) {
             $table->id();
-            $table->text('value');
+            $table->text('value_string')->nullable();
+            $table->float('value_float')->nullable();
+            $table->integer('value_int')->nullable();
+            $table->boolean('value_bool')->nullable();
             $table->foreignId('module_id')->constrained('modules');
             $table->foreignId('characteristic_id')->constrained('characteristics');
         });

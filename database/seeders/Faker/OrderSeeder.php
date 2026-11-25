@@ -1,13 +1,13 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Faker;
 
-use App\Models\Scheme;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SchemeSeeder extends Seeder
+class OrderSeeder extends Seeder
 {
     use WithoutModelEvents;
 
@@ -18,15 +18,9 @@ class SchemeSeeder extends Seeder
     {
         $users = User::all();
 
-        Scheme::factory()
+        Order::factory()
             ->count(10)
             ->recycle($users)
             ->create();
-
-        Scheme::factory()
-            ->count(2)
-            ->official()
-            ->completed()
-            ->create(['user_id' => null]);
     }
 }

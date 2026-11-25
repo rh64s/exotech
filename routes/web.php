@@ -22,3 +22,7 @@ Route::middleware('guest')->group(function () {
     })->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 });
+
+// --------------- MODULE PAGE
+
+Route::get('/modules/{id}', [CatalogController::class, 'show'])->name('modules.show');

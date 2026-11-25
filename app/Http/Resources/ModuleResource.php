@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\CharacteristicsType;
 use App\Models\Characteristic;
 use App\Models\Module;
 use Illuminate\Http\Request;
@@ -46,19 +47,25 @@ class ModuleResource extends JsonResource
                 ->map(fn (Characteristic $characteristic): array => [
                     'id' => $characteristic->id,
                     'name' => $characteristic->name,
-                    'value' => $characteristic->pivot->value,
+                    'value' => $this->displayValue($characteristic),
                     'unit' => $characteristic->unit,
                     'data_type' => $characteristic->data_type,
                 ])
                 ->values(),
-            'compatible_modules' => $this->compatibleModules
-                ->map(fn (Module $module): array => [
-                    'id' => $module->id,
-                    'name' => $module->name,
-                ])
-                ->values(),
+            'compatible_modules' => [],
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];
+    }
+
+    private function displayValue(Characteristic $characteristic): string
+    {
+        $value = $characteristic->pivot->getAttribute($characteristic->data_type->valueColumn());
+
+        if ($characteristic->data_type === CharacteristicsType::Boolean && $value !== null) {
+            return $value ? 'true' : 'false';
+        }
+
+        return (string) $value;
     }
 }

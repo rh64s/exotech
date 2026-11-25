@@ -14,10 +14,6 @@ return new class extends Migration
         Schema::create('module_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            /* $table->unsignedBigInteger('parent_id')->nullable(); */
-
-            // ! ну тут подумать, потому что не факт что буду такое делать
-            /* $table->foreign('parent_id')->references('id')->on('module_categories')->onDelete('set null'); */
         });
     }
 

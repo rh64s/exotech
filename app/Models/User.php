@@ -31,7 +31,16 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property bool $blocked
  */
-#[Fillable(['surname', 'name', 'patronymic', 'email', 'password', 'phone', 'role_id', 'blocked'])]
+#[Fillable([
+    'surname',
+    'name',
+    'patronymic',
+    'email',
+    'password',
+    'phone',
+    'role_id',
+    'blocked',
+])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -104,6 +113,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get user wishlist
+     *
+     * @return BelongsToMany<Module, $this>
+     */
+    public function wishlist(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Module::class,
+            'wishlist',
+            'user_id',
+            'module_id',
+        );
     }
 
     public function hasRole(string $role): bool

@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Faker;
 
-use App\Models\ModuleType;
+use App\Models\ModuleCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ModuleTypeSeeder extends Seeder
+class ModuleCategorySeeder extends Seeder
 {
     use WithoutModelEvents;
 
@@ -15,6 +15,6 @@ class ModuleTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        ModuleType::factory()->count(10)->create();
+        ModuleCategory::factory()->count(5)->create();
     }
 }

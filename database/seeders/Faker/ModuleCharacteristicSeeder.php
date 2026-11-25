@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Faker;
 
 use App\Models\Characteristic;
 use App\Models\Module;
@@ -17,21 +17,20 @@ class ModuleCharacteristicSeeder extends Seeder
      */
     public function run(): void
     {
-        $modules = Module::all();
         $characteristics = Characteristic::all();
 
-        if ($modules->isEmpty() || $characteristics->isEmpty()) {
+        if ($characteristics->isEmpty()) {
             return;
         }
 
-        $modules->each(function (Module $module) use ($characteristics): void {
+        foreach (Module::lazyById() as $module) {
             $count = min(fake()->numberBetween(2, 4), $characteristics->count());
 
-            $characteristics->random($count)->each(
-                fn (Characteristic $characteristic) => ModuleCharacteristic::factory()
+            foreach ($characteristics->random($count) as $characteristic) {
+                ModuleCharacteristic::factory()
                     ->forCharacteristic($characteristic)
-                    ->create(['module_id' => $module->id])
-            );
-        });
+                    ->create(['module_id' => $module->id]);
+            }
+        }
     }
 }

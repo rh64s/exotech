@@ -15,6 +15,7 @@
     padding: 0;
     margin: 0;
     font-size: 10px;
+    line-height: 1;
 }
 
 :root {
@@ -30,6 +31,8 @@
     --color-primary: #203a43; /** primary text */
     --color-error: #b3261e; /** validation errors */
     --color-image-placeholder: #f0f0eb; /** image placeholders */
+    --color-chip: #eaf1f4; /** chips, tags and selected filters */
+    --color-stroke-soft: #b4c8d0; /** checkbox borders, breadcrumb separators */
 
     --gradient-primary: linear-gradient(
         135deg,
@@ -61,12 +64,14 @@ body {
 p {
     font-size: var(--text-p);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
 }
 
 .text-h1,
 h1 {
     font-size: var(--text-h1);
     font-family: 'Manrope', 'Arial';
+    
 }
 
 .text-h2,
@@ -117,4 +122,10 @@ footer {
 .imageHolder > img {
     height: 100%;
     width: auto;
+}
+
+@media (max-width: 1450px) {
+    :root {
+        --content-width: 95vw;
+    }
 }

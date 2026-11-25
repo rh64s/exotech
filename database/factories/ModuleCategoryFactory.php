@@ -19,7 +19,6 @@ class ModuleCategoryFactory extends Factory
     {
         return [
             'name' => fake()->unique()->words(2, true),
-            'parent_id' => null,
         ];
     }
 

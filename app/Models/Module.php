@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CharacteristicsType;
 use Database\Factories\ModuleFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -88,7 +89,7 @@ class Module extends Model
             'module_characteristics',
             'module_id',
             'characteristic_id',
-        )->withPivot('value');
+        )->withPivot(CharacteristicsType::valueColumns());
     }
 
     /**

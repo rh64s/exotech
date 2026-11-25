@@ -1,22 +1,26 @@
 <script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { store } from '@/actions/App/Http/Controllers/Auth/RegisterController';
-import { create as login } from '@/actions/App/Http/Controllers/Auth/LoginController';
-import { Button, FormField } from '@/shared/ui';
+import { Head, Link, useForm } from "@inertiajs/vue3";
+
+import { store } from "@/actions/App/Http/Controllers/Auth/RegisterController";
+import { login } from "@/routes/index";
+import { Button, FormField } from "@/shared/ui";
 
 const form = useForm({
-    surname: '',
-    name: '',
-    patronymic: '',
-    phone: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
+    surname: "",
+    name: "",
+    patronymic: "",
+    phone: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
 });
 
 function submit(): void {
-    form.post(store.url(), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+    form.transform((data) => ({ 
+        ...data,
+        phone: data.phone.replace(/\D/g, '')
+    })).post(store.url(), {
+        onFinish: () => form.reset("password", "password_confirmation"),
     });
 }
 </script>
@@ -65,8 +69,9 @@ function submit(): void {
                     v-model="form.phone"
                     type="tel"
                     label="Телефон"
-                    placeholder="79001234567"
                     autocomplete="tel"
+                    mask="+7 (###) ###-##-##"
+                    placeholder="+7 (123) 456 78-90"
                     :error="form.errors.phone"
                     required
                 />
@@ -104,8 +109,8 @@ function submit(): void {
                 <Button type="submit" :disabled="form.processing">
                     {{
                         form.processing
-                            ? 'Создаём аккаунт…'
-                            : 'Зарегистрироваться'
+                            ? "Создаём аккаунт…"
+                            : "Зарегистрироваться"
                     }}
                 </Button>
             </form>
