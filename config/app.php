@@ -122,12 +122,4 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
-    'custom' => [
-        'money_range' => [
-            'total' => env('DATABASE_MONEY_STORE_TOTAL', 15),
-            'places' => env('DATABASE_MONEY_STORE_PLACES', 2),
-        ],
-    ],
-
 ];

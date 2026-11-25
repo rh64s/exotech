@@ -9,25 +9,9 @@ use MoonShine\Laravel\Http\Middleware\Authenticate as MoonshineAuthenticateMiddl
 
 class Authenticate extends MoonshineAuthenticateMiddleware
 {
-    /* protected function authenticate($request, array $guards): void */
-    /* { */
-    /*     if (! moonshineConfig()->isAuthEnabled()) { */
-    /*         return; */
-    /*     } */
-    /**/
-    /*     $guard = MoonShineAuth::getGuard(); */
-    /**/
-    /*     if (! $guard->check()) { */
-    /*         $this->unauthenticated($request, [$guard, ...$guards]); */
-    /*     } */
-    /**/
-    /*     $this->auth->shouldUse(MoonShineAuth::getGuardName()); */
-    /**/
-    /* } */
-
     #[\Override]
     protected function redirectTo($request): string
     {
-        return route('login');
+        return route("home");
     }
 }

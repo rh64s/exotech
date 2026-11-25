@@ -48,8 +48,10 @@ final class ModuleFields extends FieldSet
             'module_type_id' => Select::make(self::LABELS['module_type_id'], 'module_type_id')
                 ->options(static fn (): array => ModuleType::query()->pluck('name', 'id')->toArray())
                 ->required(),
-            'attachment_interface_id' => Select::make(self::LABELS['attachment_interface_id'], 'attachment_interface_id')
-                ->options(static fn (): array => AttachmentInterface::query()->pluck('name', 'id')->toArray())
+            'attachment_interface_id' => Select::make(
+                self::LABELS['attachment_interface_id'],
+                'attachment_interface_id'
+            )->options(static fn (): array => AttachmentInterface::query()->pluck('name', 'id')->toArray())
                 ->required(),
             'body_zone_id' => Select::make(self::LABELS['body_zone_id'], 'body_zone_id')
                 ->options(static fn (): array => BodyZone::query()->pluck('name', 'id')->toArray())

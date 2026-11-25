@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ModuleResource;
+use App\Models\Characteristic;
 use App\Models\Module;
 use App\Models\ModuleCategory;
 use Illuminate\Http\Request;
@@ -20,13 +21,15 @@ class CatalogController extends Controller
                         ->with([
                             'moduleType.category',
                             'characteristics',
-                            'compatibleModules',
                         ])
                         ->orderBy('id')
-                        ->paginate(3)
+                        ->paginate(9)
                 )
             ),
-            'categories' => ModuleCategory::all()
+            'categories' => ModuleCategory::all(),
+            'max_price' => Module::max('price'),
+            'min_price' => Module::min('price'),
+            'characteristics' => Characteristic::all(),
         ]);
     }
 }

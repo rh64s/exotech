@@ -17,7 +17,6 @@ class RegisterController extends Controller
     public function store(RegisterRequest $request): RedirectResponse
     {
         $role = Role::firstWhere(['name' => 'client']);
-
         $user = User::create([
             ...$request->validated(),
             'role_id' => $role->id,

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -26,6 +27,12 @@ class Module extends Model
 {
     /** @use HasFactory<ModuleFactory> */
     use HasFactory;
+
+    /** @return HasMany<Frame, $this> */
+    public function frames(): HasMany
+    {
+        return $this->hasMany(Frame::class);
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -82,30 +89,6 @@ class Module extends Model
             'module_id',
             'characteristic_id',
         )->withPivot('value');
-    }
-
-    /**
-     * Get the modules that are compatible with the module.
-     *
-     * @return BelongsToMany<Module, $this>
-     */
-    public function compatibleModules(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            Module::class,
-            'compatible_modules',
-            'module_id',
-            'compatible_module_id',
-        );
-    }
-
-    public function addCompatibleModule(Module $module): void
-    {
-        if ($this->is($module)) {
-            return;
-        }
-
-        $this->compatibleModules()->syncWithoutDetaching($module->id);
     }
 
     /**

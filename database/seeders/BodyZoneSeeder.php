@@ -15,13 +15,9 @@ class BodyZoneSeeder extends Seeder
      */
     public function run(): void
     {
-        $parents = BodyZone::factory()->count(5)->create();
-
-        $parents->each(
-            fn (BodyZone $parent) => BodyZone::factory()
-                ->count(2)
-                ->childOf($parent)
-                ->create()
-        );
+        BodyZone::create(['name' => 'Каркас']); // id 1
+        BodyZone::create(['name' => 'Ноги', 'parent_id' => 1]); // id 2
+        BodyZone::create(['name' => 'Рука', 'parent_id' => 1]); // id 3
+        BodyZone::create(['name' => 'Шея', 'parent_id' => 1]); // id 4
     }
 }

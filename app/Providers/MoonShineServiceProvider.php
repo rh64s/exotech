@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\MoonShine\Resources\AttachmentInterface\AttachmentInterfaceResource;
+use App\MoonShine\Resources\BodyZone\BodyZoneResource;
 use App\MoonShine\Resources\Characteristic\CharacteristicResource;
 use App\MoonShine\Resources\Chat\ChatResource;
+use App\MoonShine\Resources\Frame\FrameResource;
 use App\MoonShine\Resources\Message\MessageResource;
 use App\MoonShine\Resources\Module\ModuleResource;
 use App\MoonShine\Resources\ModuleCategory\ModuleCategoryResource;
@@ -29,8 +32,11 @@ class MoonShineServiceProvider extends ServiceProvider
         $core
             ->resources([
                 UserResource::class,
+                AttachmentInterfaceResource::class,
+                BodyZoneResource::class,
                 ModuleTypeResource::class,
                 ModuleResource::class,
+                FrameResource::class,
                 ModuleCategoryResource::class,
                 SchemeResource::class,
                 CharacteristicResource::class,

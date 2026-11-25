@@ -33,6 +33,15 @@ class ModuleResource extends JsonResource
                     'name' => $this->moduleType->category->name,
                 ],
             ],
+            'attachment_interface' => [
+                'id' => $this->attachmentInterface->id,
+                'name' => $this->attachmentInterface->name,
+                'type' => $this->attachmentInterface->type,
+            ],
+            'body_zone' => $this->bodyZone === null ? null : [
+                'id' => $this->bodyZone->id,
+                'name' => $this->bodyZone->name,
+            ],
             'characteristics' => $this->characteristics
                 ->map(fn (Characteristic $characteristic): array => [
                     'id' => $characteristic->id,

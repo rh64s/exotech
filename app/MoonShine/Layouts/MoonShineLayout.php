@@ -9,6 +9,7 @@ use App\MoonShine\Resources\AttachmentInterface\AttachmentInterfaceResource;
 use App\MoonShine\Resources\BodyZone\BodyZoneResource;
 use App\MoonShine\Resources\Characteristic\CharacteristicResource;
 use App\MoonShine\Resources\Chat\ChatResource;
+use App\MoonShine\Resources\Frame\FrameResource;
 use App\MoonShine\Resources\Message\MessageResource;
 use App\MoonShine\Resources\Module\ModuleResource;
 use App\MoonShine\Resources\ModuleCategory\ModuleCategoryResource;
@@ -50,6 +51,7 @@ final class MoonShineLayout extends AppLayout
             MenuItem::make(Dashboard::class),
             MenuItem::make(ModuleTypeResource::class),
             MenuItem::make(ModuleResource::class),
+            MenuItem::make(FrameResource::class),
             MenuItem::make(ModuleCategoryResource::class, 'Категории модулей'),
             MenuItem::make(AttachmentInterfaceResource::class, 'Интерфейсы крепления'),
             MenuItem::make(BodyZoneResource::class, 'Зоны тела'),

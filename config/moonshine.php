@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Models\User;
 use App\MoonShine\Authentication\AdminMiddleware;
+use App\MoonShine\Authentication\Authenticate as MoonshineCustomAuthenticate;
 use App\MoonShine\Layouts\MoonShineLayout;
 use App\MoonShine\Pages\Dashboard;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -18,7 +19,6 @@ use MoonShine\ColorManager\Palettes\SkyPalette;
 use MoonShine\Crud\Forms\FiltersForm;
 use MoonShine\Crud\Forms\LoginForm;
 use MoonShine\Laravel\Exceptions\MoonShineNotFoundException;
-use MoonShine\Laravel\Http\Middleware\Authenticate;
 use MoonShine\Laravel\Http\Middleware\ChangeLocale;
 use MoonShine\Laravel\Pages\ErrorPage;
 use MoonShine\Laravel\Pages\LoginPage;
@@ -77,8 +77,8 @@ return [
         'guard' => 'moonshine',
         'model' => User::class,
         'middleware' => [
-            Authenticate::class,
-            AdminMiddleware::class,
+            MoonshineCustomAuthenticate::class,
+            AdminMiddleware::class
         ],
         'pipelines' => [],
     ],
