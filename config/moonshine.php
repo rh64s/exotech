@@ -73,12 +73,11 @@ return [
 
     // Authentication and profile
     'auth' => [
-        'enabled' => true,
-        'guard' => 'moonshine',
+        'enabled' => false,
+        'guard' => 'web',
         'model' => User::class,
         'middleware' => [
-            MoonshineCustomAuthenticate::class,
-            AdminMiddleware::class
+            AdminMiddleware::class,
         ],
         'pipelines' => [],
     ],

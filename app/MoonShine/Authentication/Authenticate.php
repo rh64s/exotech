@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Authentication;
 
-use Illuminate\Http\RedirectResponse;
 use MoonShine\Laravel\Http\Middleware\Authenticate as MoonshineAuthenticateMiddleware;
 
 class Authenticate extends MoonshineAuthenticateMiddleware
@@ -12,6 +11,6 @@ class Authenticate extends MoonshineAuthenticateMiddleware
     #[\Override]
     protected function redirectTo($request): string
     {
-        return route("home");
+        return route('home');
     }
 }
