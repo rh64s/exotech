@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Link, usePage } from '@inertiajs/vue3';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { home, login, register, catalog } from '@/routes';
-import { Button } from '@/shared/ui';
+import { Link, usePage } from "@inertiajs/vue3";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { home, login, register, catalog, logout } from "@/routes";
+import { Button } from "@/shared/ui";
+import { index as schemes } from "@/routes/schemes";
 
 const page = usePage();
 const isOpen = ref(false);
@@ -18,22 +19,22 @@ function close(): void {
 }
 
 function onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
         close();
     }
 }
 
 watch(isOpen, (open) => {
-    document.body.style.overflow = open ? 'hidden' : '';
+    document.body.style.overflow = open ? "hidden" : "";
 });
 
 onMounted(() => {
-    window.addEventListener('keydown', onKeydown);
+    window.addEventListener("keydown", onKeydown);
 });
 
 onBeforeUnmount(() => {
-    window.removeEventListener('keydown', onKeydown);
-    document.body.style.overflow = '';
+    window.removeEventListener("keydown", onKeydown);
+    document.body.style.overflow = "";
 });
 </script>
 
@@ -49,8 +50,21 @@ onBeforeUnmount(() => {
                 <Button :href="catalog.url()" variant="ghost" low-padding>
                     Каталог
                 </Button>
-                <Button :href="login.url()" variant="ghost" low-padding>
-                    Конструктор
+                <Button
+                    v-if="!isGuest"
+                    :href="logout.url()"
+                    variant="ghost"
+                    low-padding
+                >
+                    Выход
+                </Button>
+                <Button
+                    v-if="!isGuest"
+                    :href="schemes.url()"
+                    variant="ghost"
+                    low-padding
+                >
+                    Мои схемы
                 </Button>
                 <template v-if="isGuest">
                     <Button :href="register.url()" variant="ghost" low-padding>
@@ -201,7 +215,7 @@ header {
     padding: 14px 16px;
     border-radius: 10px;
     color: var(--color-primary);
-    font-family: 'Manrope', 'Arial';
+    font-family: "Manrope", "Arial";
     font-size: var(--text-p);
     font-weight: 600;
     text-decoration: none;
