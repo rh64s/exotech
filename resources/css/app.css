@@ -74,6 +74,9 @@ h1 {
     
 }
 
+a {
+    font-size: inherit;
+}
 .text-h2,
 h2 {
     font-size: var(--text-h2);

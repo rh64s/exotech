@@ -20,11 +20,11 @@ class OrderSeeder extends Seeder
     {
         foreach ([
             ['anna@example.test', 'Поддержка в работе', OrderStatus::IN_PROGRESS],
-            ['igor@example.test', 'Основа для эксперимента', OrderStatus::ON_CONSIDER],
+            ['igor@example.test', 'Мой грузовой каркас', OrderStatus::ON_CONSIDER],
         ] as [$email, $name, $status]) {
             $client = User::where('email', $email)->firstOrFail();
             $scheme = Scheme::where('name', $name)->firstOrFail();
-            Order::firstOrCreate(['user_id' => $client->id, 'price' => $scheme->modules()->sum('price'), 'status' => $status]);
+            Order::firstOrCreate(['user_id' => $client->id, 'price' => $scheme->frame->module->price + $scheme->modules()->sum('price'), 'status' => $status]);
         }
     }
 }

@@ -17,7 +17,7 @@ class BodyZoneSeeder extends Seeder
     {
         $frame = BodyZone::firstOrCreate(['name' => 'Каркас', 'parent_id' => null]);
 
-        foreach (['Спина', 'Плечевой пояс', 'Таз', 'Колено', 'Голень'] as $name) {
+        foreach (['Спина', 'Правая рука', 'Левая рука', 'Правая нога', 'Левая нога'] as $name) {
             $frame->children()->firstOrCreate(['name' => $name]);
         }
     }

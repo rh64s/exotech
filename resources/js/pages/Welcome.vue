@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
+import { catalog } from '@/routes';
 import { ref } from 'vue';
 import Button from '@/shared/ui/Button.vue';
 import {
@@ -43,8 +44,8 @@ const tasks: Task[] = [
     },
     {
         index: '2',
-        title: 'Модульная система',
-        description: 'Выбирайте нужные зоны поддержки',
+        title: 'Заводской каркас',
+        description: 'Выбирайте аксессуары для свободных креплений',
     },
     {
         index: '3',
@@ -135,8 +136,8 @@ const supportTypes: SupportType[] = [
                         Сохраняйте прототипы и возвращайтесь к своим идеям.
                     </p>
                     <div class="welcome-hero__actions">
-                        <Button href="#" external>Собрать экзоскелет</Button>
-                        <a href="#" class="text-link">Смотреть каталог <Arrow></Arrow></a>
+                        <Button :href="catalog.url()">Собрать экзоскелет</Button>
+                        <Link :href="catalog()" class="text-link">Смотреть каталог <Arrow /></Link>
                     </div>
                 </div>
 
@@ -174,11 +175,11 @@ const supportTypes: SupportType[] = [
                         Соберите свой<br />экзоскелет
                     </h2>
                     <p class="text-p configurator__text">
-                        Выберите основу, тип поддержки и модули.<br />
+                        Выберите заводской каркас и навесное оборудование.<br />
                         Конфигуратор поможет проверить совместимость<br />
                         и сохранить сборку как прототип.
                     </p>
-                    <Button href="#" external>Начать сборку</Button>
+                    <Button :href="catalog.url()">Начать сборку</Button>
                 </div>
 
                 <ConfiguratorPreview />
@@ -194,7 +195,7 @@ const supportTypes: SupportType[] = [
                         под себя.
                     </p>
                 </div>
-                <a href="#" class="text-link">Весь каталог <Arrow></Arrow></a>
+                <Link :href="catalog()" class="text-link">Весь каталог <Arrow /></Link>
             </div>
 
             <div class="ready-builds__toolbar">

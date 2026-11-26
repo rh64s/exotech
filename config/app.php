@@ -122,4 +122,11 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    /**
+     * There is other settings
+     */
+    'schemes' => [
+        'max_per_user' => env('USER_MAX_SCHEMES', 3),
+    ],
 ];

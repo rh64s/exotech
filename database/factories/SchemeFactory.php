@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Frame;
 use App\Models\Scheme;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,6 +21,7 @@ class SchemeFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
+            'frame_id' => Frame::factory(),
             'name' => fake()->sentence(3),
             'description' => fake()->paragraph(),
             'official' => false,

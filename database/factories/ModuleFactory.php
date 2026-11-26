@@ -24,6 +24,7 @@ class ModuleFactory extends Factory
             'name' => fake()->words(3, true),
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 1, 100000),
+            'weight_g' => fake()->numberBetween(100, 3500),
             'module_type_id' => ModuleType::factory(),
             'attachment_interface_id' => AttachmentInterface::factory(),
             'body_zone_id' => null,

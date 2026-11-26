@@ -18,18 +18,16 @@ class CharacteristicSeeder extends Seeder
     {
         foreach (
             [
-                ["Масса", "кг", CharacteristicsType::Float],
-                ["Материал основы", null, CharacteristicsType::String],
-                ["Съёмная подкладка", null, CharacteristicsType::Boolean],
-                ["Номинальная мощность", "Вт", CharacteristicsType::Integer],
-                ["Частота измерений", "Гц", CharacteristicsType::Integer],
-                ["Усилие компенсации", "Н", CharacteristicsType::Integer],
-            ]
-            as [$name, $unit, $type]
+                ['Материал основы', null, CharacteristicsType::String],
+                ['Съёмная подкладка', null, CharacteristicsType::Boolean],
+                ['Номинальная мощность', 'Вт', CharacteristicsType::Integer],
+                ['Частота измерений', 'Гц', CharacteristicsType::Integer],
+                ['Усилие компенсации', 'Н', CharacteristicsType::Integer],
+            ] as [$name, $unit, $type]
         ) {
             Characteristic::updateOrCreate(
-                ["name" => $name],
-                ["unit" => $unit, "data_type" => $type],
+                ['name' => $name],
+                ['unit' => $unit, 'data_type' => $type],
             );
         }
     }

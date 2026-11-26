@@ -7,8 +7,7 @@ import { Button } from '@/shared/ui';
         <div class="catalog-help__text">
             <h2 class="catalog-help__title">Не нашли нужный модуль?</h2>
             <p class="catalog-help__description">
-                Соберите основу под задачу — конфигуратор проверит совместимость
-                модулей.<br />
+                Нажмите «Собрать» на карточке каркаса — конфигуратор покажет подходящие аксессуары.<br />
                 Вы можете также спросить наших экспертов.
             </p>
         </div>
@@ -16,9 +15,6 @@ import { Button } from '@/shared/ui';
         <div class="catalog-help__actions">
             <Button variant="ghost" class="catalog-help__ask">
                 Спросить
-            </Button>
-            <Button class="catalog-help__cta">
-                Открыть конфигуратор
             </Button>
         </div>
     </aside>

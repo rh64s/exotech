@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('frames', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('module_id')->constrained('modules');
-            $table->integer('max_total_weight');
-            $table->integer('max_power_output');
+            $table->foreignId('module_id')->unique()->constrained('modules');
+            $table->unsignedInteger('max_total_weight_g');
+            $table->unsignedInteger('max_power_output')->nullable();
         });
     }
 

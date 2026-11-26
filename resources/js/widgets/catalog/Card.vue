@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { Link, usePage, useForm } from '@inertiajs/vue3';
+import { login } from '@/routes';
+import { store } from '@/routes/schemes';
+import { show } from '@/routes/modules';
 import { formatPrice, type CatalogModule } from './modules';
 
 const props = defineProps<{
@@ -11,6 +15,16 @@ const characteristics = computed(() =>
 );
 
 const price = computed(() => `${formatPrice(props.module.price)} ₽`);
+const page = usePage<{ auth: { user: { id: number } | null } }>();
+
+const form = useForm({});
+
+function changeSaved(): void {
+    form.submit(
+        { preserveScroll: true }
+    )
+}
+
 </script>
 
 <template>
@@ -51,12 +65,13 @@ const price = computed(() => `${formatPrice(props.module.price)} ₽`);
                 <p v-if="module.module_type.category" class="module-card__category">
                     {{ module.module_type.category.name }}
                 </p>
-                <h3 class="module-card__title">{{ props.module.name }}</h3>
+                <h3 class="module-card__title text-h3"><Link :href="show(module.id)">{{ module.name }}</Link></h3>
                 <p class="module-card__description">
                     {{ props.module.description }}
                 </p>
 
                 <div class="module-card__badges">
+                    <span class="module-card__badge">Масса: {{ module.weight_g }} г</span>
                     <span class="module-card__badge">
                         Тип: {{ module.module_type.name }}
                     </span>
@@ -78,12 +93,11 @@ const price = computed(() => `${formatPrice(props.module.price)} ₽`);
                 <div class="module-card__divider"></div>
                 <div class="module-card__price-row">
                     <p class="module-card__price">{{ price }}</p>
-                    <button type="button" class="module-card__link">
-                        Подробнее
-                        <span class="module-card__arrow" aria-hidden="true">
-                            →
-                        </span>
-                    </button>
+                    <Link :href="show(module.id)" class="module-card__link">Подробнее</Link>
+                    <template v-if="module.frame_id">
+                        <Link v-if="page.props.auth.user" :href="store(module.frame_id)" as="button" class="module-card__link">Собрать →</Link>
+                        <Link v-else :href="login()" class="module-card__link">Войти для сборки →</Link>
+                    </template>
                 </div>
             </div>
         </div>
@@ -159,27 +173,24 @@ const price = computed(() => `${formatPrice(props.module.price)} ₽`);
 }
 
 .module-card__title {
-    display: -webkit-box;
     overflow: hidden;
     color: var(--color-primary);
     font-family: 'Manrope', 'Arial';
-    font-size: 2.2rem;
     font-weight: 500;
-    line-height: 2.8rem;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    line-clamp: 1;
+}
+.module-card__title > * {
+    font-size: inherit;
 }
 
 .module-card__description {
-    display: -webkit-box;
     overflow: hidden;
     color: var(--color-second);
     font-family: 'Manrope', 'Arial';
     font-size: 1.4rem;
     font-weight: 400;
     line-height: 1.8rem;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    line-clamp: 1;
 }
 
 .module-card__badges {

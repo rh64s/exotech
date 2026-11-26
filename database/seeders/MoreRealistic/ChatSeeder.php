@@ -17,8 +17,8 @@ class ChatSeeder extends Seeder
     public function run(): void
     {
         foreach ([
-            'Подбор подвеса для мастерской' => ['anna@example.test', 'elena@example.test'],
-            'Запись шага в лаборатории' => ['igor@example.test', 'elena@example.test'],
+            'Карманы для мастерской' => ['anna@example.test', 'elena@example.test'],
+            'Крепление фонаря' => ['igor@example.test', 'elena@example.test'],
         ] as $name => $participants) {
             $chat = Chat::firstOrCreate(['name' => $name], ['need_expert_help' => false, 'is_active' => true]);
             $chat->users()->syncWithoutDetaching(User::whereIn('email', $participants)->pluck('id'));

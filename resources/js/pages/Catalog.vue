@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Head, InfiniteScroll, router } from '@inertiajs/vue3';
-import { computed } from 'vue';
-import { catalog } from '@/routes';
+import { Head, InfiniteScroll, Link, router } from "@inertiajs/vue3";
+import { computed } from "vue";
+import { catalog } from "@/routes";
+import { index as schemes } from "@/routes/schemes";
 import {
     Card,
     CatalogFilters,
@@ -10,7 +11,7 @@ import {
     SearchBar,
     type CatalogModule,
     type ModuleCategory,
-} from '@/widgets/catalog';
+} from "@/widgets/catalog";
 
 type PaginatedModules = {
     data: CatalogModule[];
@@ -36,7 +37,7 @@ const props = defineProps<{
     body_zones: FilterOption[];
     min_price: string | number | null;
     max_price: string | number | null;
-    filters: CatalogFilterState;
+    filters: CatalogFilterState & { saved: boolean; interface: number | null };
 }>();
 
 const priceBounds = computed(() => {
@@ -46,8 +47,14 @@ const priceBounds = computed(() => {
     };
 });
 
-function updateFilters(filters: CatalogFilterState): void {
+function updateFilters(
+    filters: CatalogFilterState,
+    saved = props.filters.saved,
+    attachment = props.filters.interface,
+): void {
     const query = {
+        ...(saved && { saved: 1 }),
+        ...(attachment && { interface: attachment }),
         ...(filters.body_zones.length > 0 && {
             body_zones: filters.body_zones,
         }),
@@ -72,6 +79,26 @@ function updateFilters(filters: CatalogFilterState): void {
 
     <div class="catalog-page">
         <CatalogHeader />
+        <p v-if="$page.props.errors.scheme_limit" role="alert">
+            {{ $page.props.errors.scheme_limit }}
+            <Link :href="schemes()" class="underline">Мои схемы</Link>
+        </p>
+        <label v-if="$page.props.auth.user">
+            <input
+                type="checkbox"
+                :checked="filters.saved"
+                @change="updateFilters(filters, !filters.saved)"
+            />
+            Только сохранённые
+        </label>
+        <button
+            v-if="filters.interface"
+            type="button"
+            class="text-left underline"
+            @click="updateFilters(filters, filters.saved, null)"
+        >
+            Снять фильтр интерфейса крепления
+        </button>
 
         <div class="catalog-page__layout">
             <CatalogFilters
@@ -93,9 +120,9 @@ function updateFilters(filters: CatalogFilterState): void {
                 >
                     <h2
                         id="catalog-results-title"
-                        class="catalog-results__title"
+                        class="catalog-results__title text-h3"
                     >
-                        Модули
+                        Каркасы и аксессуары
                     </h2>
 
                     <InfiniteScroll data="items">
@@ -154,8 +181,8 @@ function updateFilters(filters: CatalogFilterState): void {
 
 .catalog-results__title {
     color: var(--color-primary);
-    font-family: 'Manrope', 'Arial';
-    font-size: 2.5rem;
+    font-family: "Manrope", "Arial";
+    /*font-size: 2.5rem;*/
     font-weight: 500;
     line-height: 3.2rem;
 }
@@ -171,7 +198,7 @@ function updateFilters(filters: CatalogFilterState): void {
     border: 1px dashed var(--color-stroke-soft);
     border-radius: 1.8rem;
     color: var(--color-second);
-    font-family: 'Manrope', 'Arial';
+    font-family: "Manrope", "Arial";
     font-size: 1.6rem;
     line-height: 2.4rem;
     text-align: center;

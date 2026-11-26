@@ -107,7 +107,7 @@ function resetFilters(): void {
 
         <div class="catalog-filters__groups">
             <fieldset class="catalog-filters__group">
-                <legend class="catalog-filters__label">Тип модуля</legend>
+                <legend class="catalog-filters__label">Тип</legend>
 
                 <div class="catalog-filters__chips">
                     <button

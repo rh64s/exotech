@@ -29,6 +29,8 @@ export type CatalogModule = {
     name: string;
     description: string | null;
     price: string | number;
+    weight_g: number;
+    frame_id: number | null;
     module_type: ModuleType;
     body_zone: ModuleSummary | null;
     characteristics: ModuleCharacteristic[];

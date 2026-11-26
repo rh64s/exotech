@@ -16,12 +16,10 @@ return new class extends Migration
             $table->foreignId('scheme_id')
                 ->constrained('schemes', 'id')->cascadeOnDelete();
             $table->foreignId('module_id')
-                ->constrained('modules', 'id')->cascadeOnDelete();
-            // к какому модулю прикреплено для древовидного крепления
-            $table->foreignId('parent_scheme_modules_id')->nullable()
-                ->constrained('scheme_modules')->nullOnDelete();
-
-            $table->unique(['scheme_id', 'module_id']);
+                ->constrained('modules');
+            $table->foreignId('frame_slot_id')->constrained();
+            $table->index(['scheme_id', 'frame_slot_id']);
+            $table->timestamps();
         });
     }
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const buildParts = [
-    { index: '01', label: 'Основа', value: 'Нижняя часть тела' },
-    { index: '02', label: 'Тип поддержки', value: 'Активная' },
-    { index: '03', label: 'Модули', value: 'Выбрать модули +' },
+    { index: '01', label: 'Каркас', value: 'Грузовой экзоскелет «Смена»' },
+    { index: '02', label: 'Спина', value: 'Два кармана для инструмента' },
+    { index: '03', label: 'Правая рука', value: 'Свободное крепление' },
 ];
 </script>
 

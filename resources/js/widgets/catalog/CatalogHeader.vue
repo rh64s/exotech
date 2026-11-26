@@ -5,9 +5,9 @@ withDefaults(
         description?: string;
     }>(),
     {
-        title: 'Каталог модулей',
+        title: 'Каталог экзоскелетов',
         description:
-            'Основа, поддержка, приводы и датчики — соберите экзоскелет из совместимых модулей и сохраните сборку как прототип.',
+            'Выберите заводской каркас, затем установите аксессуары на его свободные крепления.',
     },
 );
 </script>
@@ -16,7 +16,6 @@ withDefaults(
     <header class="catalog-header">
         <h1 class="catalog-header__title">{{ title }}</h1>
         <p class="catalog-header__description">{{ description }}</p>
-        <p class="catalog-header__warning">Добавьте модули в список желаемых, чтобы добавить его в сборку в конструкторе!</p>
     </header>
 </template>
 

@@ -15,7 +15,7 @@ class ModuleCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (['Несущие конструкции', 'Пассивная поддержка', 'Электроприводы', 'Измерительные модули'] as $name) {
+        foreach (['Несущие конструкции', 'Аксессуары'] as $name) {
             ModuleCategory::firstOrCreate(['name' => $name]);
         }
     }

@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->timestamps();
             $table->foreignId('module_type_id')->constrained('module_types');
-            $table->foreignId('attachment_interface_id')->constrained('attachment_interfaces');
+            $table->unsignedInteger('weight_g');
+            $table->foreignId('attachment_interface_id')->nullable()->constrained('attachment_interfaces');
             $table->foreignId('body_zone_id')->nullable()->constrained('body_zones');
         });
     }
