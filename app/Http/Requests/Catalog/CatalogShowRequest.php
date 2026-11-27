@@ -23,14 +23,22 @@ class CatalogShowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'body_zones' => ['sometimes', 'array'],
-            'body_zones.*' => ['integer', 'exists:body_zones,id'],
             'types' => ['sometimes', 'array'],
             'types.*' => ['integer', 'exists:module_types,id'],
-            'categories' => ['sometimes', 'array'],
-            'categories.*' => ['integer', 'exists:module_categories,id'],
+            'characteristic_values' => ['sometimes', 'array', 'list', 'max:50'],
+            'characteristic_values.*' => ['required', 'integer', 'min:1', 'distinct'],
+            'search' => ['nullable', 'string', 'max:100'],
             'min_price' => ['nullable', 'numeric', 'min:0'],
-            'max_price' => ['nullable', 'numeric', 'min:0', 'gte:min_price'],
+            'max_price' => ['nullable', 'numeric', 'min:0', ...($this->filled('min_price') ? ['gte:min_price'] : [])],
+            ...($this->routeIs('catalog.frames') ? [
+                'max_weight_g' => ['nullable', 'integer', 'min:0'],
+                'min_total_weight_g' => ['nullable', 'integer', 'min:0'],
+            ] : [
+                'saved' => ['sometimes', 'boolean'],
+                'interface' => ['sometimes', 'integer', 'exists:attachment_interfaces,id'],
+                'body_zones' => ['sometimes', 'array'],
+                'body_zones.*' => ['integer', 'exists:body_zones,id'],
+            ]),
         ];
     }
 }

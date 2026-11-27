@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\Frame\Pages;
 
+use App\Models\Module;
+use App\Models\SchemeModule;
 use App\MoonShine\Resources\Frame\FrameFields;
 use App\MoonShine\Resources\Frame\FrameResource;
+use App\MoonShine\Resources\FrameSlot\FrameSlotResource;
+use Illuminate\Validation\Rule;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\FormBuilderContract;
+use MoonShine\Laravel\Fields\Relationships\HasMany;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Support\ListOf;
 use MoonShine\UI\Components\FormBuilder;
@@ -31,9 +36,10 @@ class FrameFormPage extends FormPage
                 'id',
 
                 'module_id',
-                'max_total_weight',
+                'max_total_weight_g',
                 'max_power_output',
             ])),
+            HasMany::make('Крепления', 'slots', resource: FrameSlotResource::class)->creatable(),
         ];
     }
 
@@ -50,9 +56,10 @@ class FrameFormPage extends FormPage
     protected function rules(DataWrapperContract $item): array
     {
         return [
-            'module_id' => ['required', 'integer', 'exists:modules,id'],
-            'max_total_weight' => ['required', 'integer'],
-            'max_power_output' => ['required', 'integer'],
+            'module_id' => ['required', 'integer', 'exists:modules,id', Rule::unique('frames')->ignore($item->getOriginal()?->id),
+                Rule::notIn(SchemeModule::distinct()->pluck('module_id'))],
+            'max_total_weight_g' => ['required', 'integer', 'min:'.(Module::find(request()->integer('module_id'))?->weight_g ?? 1)],
+            'max_power_output' => ['nullable', 'integer', 'min:0'],
         ];
     }
 

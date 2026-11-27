@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -18,21 +18,30 @@ use Illuminate\Support\Carbon;
  * @property string|null $description
  * @property string $price
  * @property int $module_type_id
- * @property int $attachment_interface_id
+ * @property int $weight_g
+ * @property int|null $attachment_interface_id
  * @property int|null $body_zone_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'description', 'price', 'module_type_id', 'attachment_interface_id', 'body_zone_id'])]
+#[Fillable([
+    "name",
+    "description",
+    "price",
+    "weight_g",
+    "module_type_id",
+    "attachment_interface_id",
+    "body_zone_id",
+])]
 class Module extends Model
 {
     /** @use HasFactory<ModuleFactory> */
     use HasFactory;
 
-    /** @return HasMany<Frame, $this> */
-    public function frames(): HasMany
+    /** @return HasOne<Frame, $this> */
+    public function frame(): HasOne
     {
-        return $this->hasMany(Frame::class);
+        return $this->hasOne(Frame::class);
     }
 
     /**
@@ -43,7 +52,7 @@ class Module extends Model
     protected function casts(): array
     {
         return [
-            'price' => 'decimal:2',
+            "price" => "decimal:2",
         ];
     }
 
@@ -86,9 +95,9 @@ class Module extends Model
     {
         return $this->belongsToMany(
             Characteristic::class,
-            'module_characteristics',
-            'module_id',
-            'characteristic_id',
+            "module_characteristics",
+            "module_id",
+            "characteristic_id",
         )->withPivot(CharacteristicsType::valueColumns());
     }
 
@@ -101,9 +110,14 @@ class Module extends Model
     {
         return $this->belongsToMany(
             Scheme::class,
-            'scheme_modules',
-            'module_id',
-            'scheme_id',
-        )->withPivot('parent_scheme_modules_id');
+            "scheme_modules",
+            "module_id",
+            "scheme_id",
+        )->withPivot("id", "frame_slot_id");
+    }
+
+    public function wishlistedByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, "wishlist");
     }
 }

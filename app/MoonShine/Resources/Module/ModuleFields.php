@@ -40,6 +40,7 @@ final class ModuleFields extends FieldSet
     {
         return [
             'id' => ID::make(),
+            'weight_g' => Number::make('Масса, г', 'weight_g')->min(1)->required(),
             'name' => Text::make(self::LABELS['name'], 'name')->required(),
             'description' => Textarea::make(self::LABELS['description'], 'description'),
             'price' => Number::make(self::LABELS['price'], 'price')
@@ -52,7 +53,7 @@ final class ModuleFields extends FieldSet
                 self::LABELS['attachment_interface_id'],
                 'attachment_interface_id'
             )->options(static fn (): array => AttachmentInterface::query()->pluck('name', 'id')->toArray())
-                ->required(),
+                ->nullable(),
             'body_zone_id' => Select::make(self::LABELS['body_zone_id'], 'body_zone_id')
                 ->options(static fn (): array => BodyZone::query()->pluck('name', 'id')->toArray())
                 ->nullable(),

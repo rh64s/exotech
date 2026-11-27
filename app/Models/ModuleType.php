@@ -24,16 +24,6 @@ class ModuleType extends Model
     use HasFactory;
 
     /**
-     * Get the category the module type belongs to.
-     *
-     * @return BelongsTo<ModuleCategory, $this>
-     */
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(ModuleCategory::class, 'category_id');
-    }
-
-    /**
      * Get the modules that belong to the type.
      *
      * @return HasMany<Module, $this>

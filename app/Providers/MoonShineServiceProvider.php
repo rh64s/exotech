@@ -9,9 +9,9 @@ use App\MoonShine\Resources\BodyZone\BodyZoneResource;
 use App\MoonShine\Resources\Characteristic\CharacteristicResource;
 use App\MoonShine\Resources\Chat\ChatResource;
 use App\MoonShine\Resources\Frame\FrameResource;
+use App\MoonShine\Resources\FrameSlot\FrameSlotResource;
 use App\MoonShine\Resources\Message\MessageResource;
 use App\MoonShine\Resources\Module\ModuleResource;
-use App\MoonShine\Resources\ModuleCategory\ModuleCategoryResource;
 use App\MoonShine\Resources\ModuleCharacteristic\ModuleCharacteristicResource;
 use App\MoonShine\Resources\ModuleType\ModuleTypeResource;
 use App\MoonShine\Resources\Order\OrderResource;
@@ -37,7 +37,6 @@ class MoonShineServiceProvider extends ServiceProvider
                 ModuleTypeResource::class,
                 ModuleResource::class,
                 FrameResource::class,
-                ModuleCategoryResource::class,
                 SchemeResource::class,
                 CharacteristicResource::class,
                 ModuleCharacteristicResource::class,
@@ -45,6 +44,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 MessageResource::class,
                 OrderResource::class,
                 RoleResource::class,
+                FrameSlotResource::class,
             ])
             ->pages([
                 ...$core->getConfig()->getPages(),

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\Scheme;
 
+use App\Models\Frame;
 use App\MoonShine\Fields\FieldSet;
 use App\MoonShine\Resources\User\UserFields;
 use MoonShine\Contracts\UI\FieldContract;
@@ -37,6 +38,7 @@ final class SchemeFields extends FieldSet
     {
         return [
             'id' => ID::make(),
+            'frame_id' => Select::make('Каркас', 'frame_id')->options(static fn (): array => Frame::with('module')->get()->pluck('module.name', 'id')->all())->required(),
             'user_id' => Select::make(self::LABELS['user_id'], 'user_id')
                 ->options(static fn (): array => UserFields::options())
                 ->nullable(),

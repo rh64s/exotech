@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\ModuleCategory\Pages;
+namespace App\MoonShine\Resources\FrameSlot\Pages;
 
-use App\MoonShine\Resources\ModuleCategory\ModuleCategoryFields;
-use App\MoonShine\Resources\ModuleCategory\ModuleCategoryResource;
+use App\MoonShine\Resources\FrameSlot\FrameSlotResource;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
@@ -14,20 +13,16 @@ use MoonShine\UI\Components\Table\TableBuilder;
 use Throwable;
 
 /**
- * @extends DetailPage<ModuleCategoryResource>
+ * @extends DetailPage<FrameSlotResource>
  */
-class ModuleCategoryDetailPage extends DetailPage
+class FrameSlotDetailPage extends DetailPage
 {
     /**
      * @return list<FieldContract>
      */
     protected function fields(): iterable
     {
-        return ModuleCategoryFields::only([
-            'id',
-            'name',
-            'parent_id',
-        ]);
+        return FrameSlotResource::slotFields();
     }
 
     protected function buttons(): ListOf

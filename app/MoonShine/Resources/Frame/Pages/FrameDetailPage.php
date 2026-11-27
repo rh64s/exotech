@@ -27,7 +27,7 @@ class FrameDetailPage extends DetailPage
             'id',
 
             'module_id',
-            'max_total_weight',
+            'max_total_weight_g',
             'max_power_output',
         ]);
     }

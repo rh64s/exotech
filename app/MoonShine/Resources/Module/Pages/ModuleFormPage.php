@@ -32,6 +32,7 @@ class ModuleFormPage extends FormPage
                 'name',
                 'description',
                 'price',
+                'weight_g',
                 'module_type_id',
                 'attachment_interface_id',
                 'body_zone_id',
@@ -51,7 +52,7 @@ class ModuleFormPage extends FormPage
 
     protected function rules(DataWrapperContract $item): array
     {
-        return [];
+        return ['weight_g' => ['required', 'integer', 'min:1']];
     }
 
     /**

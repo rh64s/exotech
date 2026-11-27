@@ -127,7 +127,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'wishlist',
             'user_id',
             'module_id',
-        );
+        )->withTimestamps();
     }
 
     public function hasRole(string $role): bool

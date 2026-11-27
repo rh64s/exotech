@@ -2,59 +2,70 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\ModuleCategory\Pages;
+namespace App\MoonShine\Resources\FrameSlot\Pages;
 
-use App\MoonShine\Resources\ModuleCategory\ModuleCategoryFields;
-use App\MoonShine\Resources\ModuleCategory\ModuleCategoryResource;
-use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
+use App\MoonShine\Resources\FrameSlot\FrameSlotResource;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
-use MoonShine\Contracts\UI\FormBuilderContract;
-use MoonShine\Laravel\Pages\Crud\FormPage;
+use MoonShine\Laravel\Pages\Crud\IndexPage;
+use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\Support\ListOf;
-use MoonShine\UI\Components\FormBuilder;
-use MoonShine\UI\Components\Layout\Box;
+use MoonShine\UI\Components\Metrics\Wrapped\Metric;
+use MoonShine\UI\Components\Table\TableBuilder;
 use Throwable;
 
 /**
- * @extends FormPage<ModuleCategoryResource>
+ * @extends IndexPage<FrameSlotResource>
  */
-class ModuleCategoryFormPage extends FormPage
+class FrameSlotIndexPage extends IndexPage
 {
+    protected bool $isLazy = true;
+
     /**
-     * @return list<ComponentContract|FieldContract>
+     * @return list<FieldContract>
      */
     protected function fields(): iterable
     {
-        return [
-            Box::make(ModuleCategoryFields::only([
-                'id',
-                'name',
-                'parent_id',
-            ])),
-        ];
+        return FrameSlotResource::slotFields();
     }
 
+    /**
+     * @return ListOf<ActionButtonContract>
+     */
     protected function buttons(): ListOf
     {
         return parent::buttons();
     }
 
-    protected function formButtons(): ListOf
-    {
-        return parent::formButtons();
-    }
-
-    protected function rules(DataWrapperContract $item): array
+    /**
+     * @return list<FieldContract>
+     */
+    protected function filters(): iterable
     {
         return [];
     }
 
     /**
-     * @param  FormBuilder  $component
-     * @return FormBuilder
+     * @return list<QueryTag>
      */
-    protected function modifyFormComponent(FormBuilderContract $component): FormBuilderContract
+    protected function queryTags(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return list<Metric>
+     */
+    protected function metrics(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param  TableBuilder  $component
+     * @return TableBuilder
+     */
+    protected function modifyListComponent(ComponentContract $component): ComponentContract
     {
         return $component;
     }

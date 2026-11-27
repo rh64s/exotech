@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int|null $user_id
+ * @property int $frame_id
  * @property string $name
  * @property string $description
  * @property bool $official
@@ -20,11 +22,26 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['user_id', 'name', 'description', 'official', 'completed'])]
+#[Fillable(['user_id', 'frame_id', 'name', 'description', 'official', 'completed'])]
 class Scheme extends Model
 {
     /** @use HasFactory<SchemeFactory> */
     use HasFactory;
+
+    public function frame(): BelongsTo
+    {
+        return $this->belongsTo(Frame::class);
+    }
+
+    public function installations(): HasMany
+    {
+        return $this->hasMany(SchemeModule::class);
+    }
+
+    public function totalWeightGrams(): int
+    {
+        return $this->frame->module->weight_g + (int) $this->modules()->sum('modules.weight_g');
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -61,6 +78,6 @@ class Scheme extends Model
             'scheme_modules',
             'scheme_id',
             'module_id',
-        )->withPivot('parent_scheme_modules_id');
+        )->withPivot('id', 'frame_slot_id');
     }
 }

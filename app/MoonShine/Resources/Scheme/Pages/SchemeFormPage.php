@@ -30,6 +30,7 @@ class SchemeFormPage extends FormPage
             Box::make(SchemeFields::only([
                 'id',
                 'user_id',
+                'frame_id',
                 'name',
                 'description',
                 'official',
@@ -50,7 +51,9 @@ class SchemeFormPage extends FormPage
 
     protected function rules(DataWrapperContract $item): array
     {
-        return [];
+        $scheme = $item->getOriginal();
+
+        return ['frame_id' => ['required', 'exists:frames,id', ...($scheme?->exists ? ['in:'.$scheme->frame_id] : [])]];
     }
 
     /**

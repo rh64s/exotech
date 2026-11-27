@@ -11,9 +11,10 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
-        if ($user === null || !$user->hasRole('admin')) {
+        if ($user === null || ! $user->hasRole('admin')) {
             return redirect()->route('home');
         }
+
         return $next($request);
     }
 }

@@ -19,7 +19,7 @@ final class FrameFields extends FieldSet
     private const LABELS = [
         'id' => 'ID',
         'module_id' => 'Модуль',
-        'max_total_weight' => 'Максимальный суммарный вес',
+        'max_total_weight_g' => 'Максимальная масса сборки, г',
         'max_power_output' => 'Максимальная выходная мощность',
     ];
 
@@ -33,8 +33,8 @@ final class FrameFields extends FieldSet
             'module_id' => Select::make(self::LABELS['module_id'], 'module_id')
                 ->options(static fn (): array => Module::query()->pluck('name', 'id')->toArray())
                 ->required(),
-            'max_total_weight' => Number::make(self::LABELS['max_total_weight'], 'max_total_weight')->required(),
-            'max_power_output' => Number::make(self::LABELS['max_power_output'], 'max_power_output')->required(),
+            'max_total_weight_g' => Number::make(self::LABELS['max_total_weight_g'], 'max_total_weight_g')->min(1)->required(),
+            'max_power_output' => Number::make(self::LABELS['max_power_output'], 'max_power_output')->nullable(),
         ];
     }
 }

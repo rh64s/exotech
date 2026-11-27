@@ -25,36 +25,26 @@ class ModuleResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
+            'weight_g' => $this->weight_g,
+            'frame_id' => $this->whenHas('frame_id', fn () => (int) $this->frame_id),
             'module_type' => [
-                'id' => $this->moduleType->id,
                 'name' => $this->moduleType->name,
-                'description' => $this->moduleType->description,
-                'category' => [
-                    'id' => $this->moduleType->category->id,
-                    'name' => $this->moduleType->category->name,
-                ],
             ],
-            'attachment_interface' => [
-                'id' => $this->attachmentInterface->id,
+            'attachment_interface' => $this->whenLoaded('attachmentInterface', fn () => [
                 'name' => $this->attachmentInterface->name,
-                'type' => $this->attachmentInterface->type,
-            ],
-            'body_zone' => $this->bodyZone === null ? null : [
-                'id' => $this->bodyZone->id,
+            ]),
+            'body_zone' => $this->whenLoaded('bodyZone', fn () => [
                 'name' => $this->bodyZone->name,
-            ],
-            'characteristics' => $this->characteristics
+            ]),
+            'characteristics' => $this->whenLoaded('characteristics', fn () => $this->characteristics
                 ->map(fn (Characteristic $characteristic): array => [
                     'id' => $characteristic->id,
                     'name' => $characteristic->name,
                     'value' => $this->displayValue($characteristic),
                     'unit' => $characteristic->unit,
-                    'data_type' => $characteristic->data_type,
                 ])
-                ->values(),
-            'compatible_modules' => [],
-            'created_at' => $this->created_at?->toIso8601String(),
-            'updated_at' => $this->updated_at?->toIso8601String(),
+                ->values()),
+            'is_in_wishlist' => $this->whenHas('is_in_wishlist', fn () => (bool) $this->is_in_wishlist),
         ];
     }
 
@@ -63,7 +53,7 @@ class ModuleResource extends JsonResource
         $value = $characteristic->pivot->getAttribute($characteristic->data_type->valueColumn());
 
         if ($characteristic->data_type === CharacteristicsType::Boolean && $value !== null) {
-            return $value ? 'true' : 'false';
+            return $value ? 'Да' : 'Нет';
         }
 
         return (string) $value;
