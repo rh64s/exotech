@@ -78,7 +78,7 @@ const errorId = computed(() => `${props.id}-error`);
     padding: 12px 16px;
     border: 1px solid var(--color-mid);
     border-radius: 12px;
-    background-color: var(--color-surface);
+    background-color: var(--color-base);
     color: var(--color-primary);
     font-size: var(--text-p);
     outline: none;

@@ -1,17 +1,34 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { Link, usePage, useForm } from '@inertiajs/vue3';
-import { login } from '@/routes';
-import { store } from '@/routes/schemes';
-import { show } from '@/routes/modules';
-import { formatPrice, type CatalogModule } from './modules';
+import { computed } from "vue";
+import { Link, usePage, useForm } from "@inertiajs/vue3";
+import { login } from "@/routes";
+import { store as storeScheme } from "@/routes/schemes";
+import { show } from "@/routes/modules";
+import {
+    destroy as removeFromWishlist,
+    store as addToWishlist,
+} from "@/routes/wishlist";
+import { formatPrice, type CatalogFrame, type CatalogModule } from "./modules";
+import Arrow from "@/assets/svg/Arrow.vue";
+import ProductPlaceholder from "@/assets/svg/ProductPlaceholder.vue";
 
 const props = defineProps<{
-    module: CatalogModule;
+    module: CatalogModule | CatalogFrame;
 }>();
 
+const frameId = computed(() =>
+    "frame_id" in props.module ? props.module.frame_id : null,
+);
+const bodyZone = computed(() =>
+    "body_zone" in props.module ? props.module.body_zone : null,
+);
+const isSaved = computed(
+    () => "is_in_wishlist" in props.module && props.module.is_in_wishlist === true,
+);
 const characteristics = computed(() =>
-    props.module.characteristics.filter((characteristic) => characteristic.value?.trim()),
+    "characteristics" in props.module
+        ? props.module.characteristics.filter(({ value }) => value.trim())
+        : [],
 );
 
 const price = computed(() => `${formatPrice(props.module.price)} ₽`);
@@ -21,69 +38,56 @@ const form = useForm({});
 
 function changeSaved(): void {
     form.submit(
-        { preserveScroll: true }
-    )
+        isSaved.value
+            ? removeFromWishlist(props.module.id)
+            : addToWishlist(props.module.id),
+        { preserveScroll: true },
+    );
 }
-
 </script>
 
 <template>
     <article class="module-card">
         <div class="module-card__image">
-            <img
-                v-if="props.module.image_url"
-                :src="props.module.image_url"
-                :alt="props.module.name"
-                loading="lazy"
-            />
-            <svg
+            <template v-if="props.module.image_url">
+                <img
+                    :src="props.module.image_url"
+                    :alt="props.module.name"
+                    loading="lazy"
+                />
+            </template>
+            <ProductPlaceholder
                 v-else
                 class="module-card__placeholder"
-                viewBox="0 0 48 48"
-                fill="none"
-                aria-hidden="true"
-            >
-                <rect
-                    x="9"
-                    y="13"
-                    width="30"
-                    height="22"
-                    rx="5"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                />
-                <path
-                    d="M9 21h30M18 13v22M30 13v22"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                />
-            </svg>
+            ></ProductPlaceholder>
         </div>
 
         <div class="module-card__content">
             <div class="module-card__main">
-                <p v-if="module.module_type.category" class="module-card__category">
-                    {{ module.module_type.category.name }}
-                </p>
-                <h3 class="module-card__title text-h3"><Link :href="show(module.id)">{{ module.name }}</Link></h3>
+                <h3 class="module-card__title text-h3">
+                    <Link :href="show(module.id)">{{ module.name }}</Link>
+                </h3>
                 <p class="module-card__description">
                     {{ props.module.description }}
                 </p>
 
                 <div class="module-card__badges">
-                    <span class="module-card__badge">Масса: {{ module.weight_g }} г</span>
+                    <span class="module-card__badge"
+                        >Масса: {{ module.weight_g }} г</span
+                    >
                     <span class="module-card__badge">
                         Тип: {{ module.module_type.name }}
                     </span>
-                    <span v-if="module.body_zone" class="module-card__badge">
-                        Зона: {{ module.body_zone.name }}
+                    <span v-if="bodyZone" class="module-card__badge">
+                        Зона: {{ bodyZone.name }}
                     </span>
                     <span
                         v-for="characteristic in characteristics"
                         :key="characteristic.id"
                         class="module-card__badge"
                     >
-                        {{ characteristic.name }}: {{ characteristic.value.trim() }}
+                        {{ characteristic.name }}:
+                        {{ characteristic.value.trim() }}
                         {{ characteristic.unit }}
                     </span>
                 </div>
@@ -93,11 +97,34 @@ function changeSaved(): void {
                 <div class="module-card__divider"></div>
                 <div class="module-card__price-row">
                     <p class="module-card__price">{{ price }}</p>
-                    <Link :href="show(module.id)" class="module-card__link">Подробнее</Link>
-                    <template v-if="module.frame_id">
-                        <Link v-if="page.props.auth.user" :href="store(module.frame_id)" as="button" class="module-card__link">Собрать →</Link>
-                        <Link v-else :href="login()" class="module-card__link">Войти для сборки →</Link>
+                    <template v-if="frameId !== null">
+                        <Link
+                            v-if="page.props.auth.user"
+                            :href="storeScheme(frameId)"
+                            as="button"
+                            class="module-card__link"
+                            >Создать сборку <Arrow></Arrow
+                        ></Link>
+                        <Link v-else :href="login()" class="module-card__link"
+                            >Войти для сборки <Arrow></Arrow
+                        ></Link>
                     </template>
+                    <button
+                        v-else-if="page.props.auth.user"
+                        type="button"
+                        class="btn btn-primary low-padding"
+                        :disabled="form.processing"
+                        :aria-pressed="isSaved"
+                        @click="changeSaved"
+                    >
+                        {{ isSaved ? "Убрать из списка" : "Сохранить для сборки" }}
+                    </button>
+                    <Link v-else :href="login()" class="module-card__link">
+                        Войти, чтобы сохранить
+                    </Link>
+                    <Link :href="show(module.id)" class="module-card__link"
+                        >Подробнее</Link
+                    >
                 </div>
             </div>
         </div>
@@ -163,19 +190,10 @@ function changeSaved(): void {
     gap: 0.8rem;
 }
 
-.module-card__category {
-    color: var(--color-second);
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    line-height: 1.4rem;
-    text-transform: uppercase;
-}
-
 .module-card__title {
     overflow: hidden;
     color: var(--color-primary);
-    font-family: 'Manrope', 'Arial';
+    font-family: "Manrope", "Arial";
     font-weight: 500;
     line-clamp: 1;
 }
@@ -186,7 +204,7 @@ function changeSaved(): void {
 .module-card__description {
     overflow: hidden;
     color: var(--color-second);
-    font-family: 'Manrope', 'Arial';
+    font-family: "Manrope", "Arial";
     font-size: 1.4rem;
     font-weight: 400;
     line-height: 1.8rem;
@@ -233,7 +251,7 @@ function changeSaved(): void {
 
 .module-card__price {
     color: var(--color-primary);
-    font-family: 'Manrope', 'Arial';
+    font-family: "Manrope", "Arial";
     font-size: 1.8rem;
     font-weight: 600;
     line-height: 2.4rem;
@@ -246,7 +264,7 @@ function changeSaved(): void {
     border: 0;
     background: transparent;
     color: var(--color-accent);
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-family: "Inter", "Segoe UI", sans-serif;
     font-size: 1.3rem;
     font-weight: 600;
     line-height: 1.8rem;

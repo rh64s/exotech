@@ -27,10 +27,10 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      inkscape:zoom="4.1400865"
-     inkscape:cx="53.863609"
+     inkscape:cx="53.984379"
      inkscape:cy="39.491928"
      inkscape:window-width="1910"
-     inkscape:window-height="1154"
+     inkscape:window-height="1070"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -41,23 +41,23 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <circle
+       style="fill:#aec1fe;fill-opacity:1;stroke:#2c5364;stroke-width:10.7237;stroke-linecap:round;stroke-dasharray:10.7237, 21.4475, 42.8949, 64.3425;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1"
+       cx="-36.754829"
+       cy="-64.910179"
+       r="32.612236"
+       transform="rotate(173.58678)" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:21.684px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;direction:ltr;fill:#491eda;stroke-width:7.83053;stroke-linecap:round;stroke-dasharray:7.83053, 39.1526, 46.9831;fill-opacity:1"
-       x="24.142658"
-       y="66.226814"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:21.684px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke:none;stroke-width:7.83053;stroke-linecap:round;stroke-dasharray:7.83053, 39.1526, 46.9831;stroke-opacity:1"
+       x="20.519547"
+       y="65.843834"
        id="text1"><tspan
          sodipodi:role="line"
          id="tspan1"
-         x="24.142658"
-         y="66.226814"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:21.684px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:7.83053;fill:#491eda;fill-opacity:1">экзотех</tspan></text>
-    <circle
-       style="fill:none;stroke:#491eda;stroke-width:9.03501;stroke-linecap:round;stroke-dasharray:9.03501, 18.07, 36.14, 54.2101;stroke-dashoffset:0;stroke-opacity:1"
-       id="path1"
-       cx="-30.857916"
-       cy="-63.83165"
-       r="27.476595"
-       transform="rotate(173.58678)" />
+         x="20.519547"
+         y="65.843834"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:21.684px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:7.83053;stroke-opacity:1">экзотех</tspan></text>
   </g>
 </svg>

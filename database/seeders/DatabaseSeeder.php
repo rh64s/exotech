@@ -7,7 +7,6 @@ use Database\Seeders\MoreRealistic\BodyZoneSeeder;
 use Database\Seeders\MoreRealistic\CharacteristicSeeder;
 use Database\Seeders\MoreRealistic\ChatSeeder;
 use Database\Seeders\MoreRealistic\MessageSeeder;
-use Database\Seeders\MoreRealistic\ModuleCategorySeeder;
 use Database\Seeders\MoreRealistic\ModuleCharacteristicSeeder;
 use Database\Seeders\MoreRealistic\ModuleSeeder;
 use Database\Seeders\MoreRealistic\ModuleTypeSeeder;
@@ -32,7 +31,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AdminSeeder::class,
             UserSeeder::class,
-            ModuleCategorySeeder::class,
             ModuleTypeSeeder::class,
             BodyZoneSeeder::class,
             AttachmentInterfaceSeeder::class,

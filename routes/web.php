@@ -5,12 +5,12 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\WishlistController;
-use App\MoonShine\Authentication\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::inertia('/', 'Welcome')->name('home');
-Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+Route::get('/catalog/modules', [CatalogController::class, 'indexModules'])->name('catalog.modules');
+Route::get('/catalog/frames', [CatalogController::class, 'indexFrames'])->name('catalog.frames');
 
 Route::middleware('auth')->controller(SchemeController::class)->group(function () {
     Route::get('/schemes', 'index')->name('schemes.index');

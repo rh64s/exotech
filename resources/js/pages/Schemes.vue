@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { catalog } from '@/routes';
+import { frames } from '@/routes/catalog';
 import { destroy, show } from '@/routes/schemes';
 
 defineProps<{ schemes: { id: number; name: string; installations_count: number }[]; limit: number }>();
@@ -17,7 +17,7 @@ function deleteScheme(id: number) {
         <Head title="Мои схемы" />
         <h1>Мои схемы</h1>
         <p>Использовано: {{ schemes.length }} из {{ limit }}</p>
-        <Link v-if="schemes.length < limit" :href="catalog()" class="underline">Выбрать каркас для новой сборки</Link>
+        <Link v-if="schemes.length < limit" :href="frames()" class="underline">Выбрать каркас для новой сборки</Link>
         <p v-else>Чтобы начать новую сборку, удалите одну из существующих.</p>
         <section v-for="scheme in schemes" :key="scheme.id" class="grid gap-3 rounded-xl border p-4">
             <h2>{{ scheme.name }} · № {{ scheme.id }}</h2>

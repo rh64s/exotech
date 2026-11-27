@@ -1,44 +1,54 @@
-export type ModuleCategory = {
-    id: number;
-    name: string;
-    parent_id?: number | null;
-};
-
-export type ModuleType = {
-    id: number;
-    name: string;
-    description: string | null;
-    category: ModuleCategory | null;
-};
-
 export type ModuleCharacteristic = {
     id: number;
     name: string;
     value: string;
     unit: string | null;
-    data_type: string;
 };
 
-export type ModuleSummary = {
-    id: number;
+type NamedItem = {
     name: string;
 };
 
-export type CatalogModule = {
+export type FilterOption = NamedItem & { id: number };
+
+export type CharacteristicFilterOption = FilterOption & {
+    unit: string | null;
+    values: { id: number; label: string }[];
+};
+
+export type CatalogFilterState = {
+    types: number[];
+    body_zones?: number[];
+    characteristic_values: number[];
+    min_price: number | null;
+    max_price: number | null;
+    max_weight_g?: number | null;
+    min_total_weight_g?: number | null;
+};
+
+export type CatalogProduct = {
     id: number;
     name: string;
     description: string | null;
     price: string | number;
     weight_g: number;
-    frame_id: number | null;
-    module_type: ModuleType;
-    body_zone: ModuleSummary | null;
-    characteristics: ModuleCharacteristic[];
-    compatible_modules: ModuleSummary[];
-    created_at: string | null;
-    updated_at: string | null;
+    module_type: NamedItem;
     /** Поле появится, когда у модулей будут изображения. */
     image_url?: string | null;
+};
+
+export type CatalogModule = CatalogProduct & {
+    body_zone: NamedItem | null;
+    characteristics: ModuleCharacteristic[];
+    is_in_wishlist?: boolean;
+};
+
+export type CatalogFrame = CatalogProduct & { frame_id: number };
+
+export type ProductDetails = CatalogProduct & {
+    body_zone?: NamedItem | null;
+    attachment_interface?: NamedItem | null;
+    characteristics: ModuleCharacteristic[];
 };
 
 const priceFormatter = new Intl.NumberFormat('ru-RU', {

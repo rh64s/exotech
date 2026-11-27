@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Models\User;
 use App\MoonShine\Authentication\AdminMiddleware;
-use App\MoonShine\Authentication\Authenticate as MoonshineCustomAuthenticate;
 use App\MoonShine\Layouts\MoonShineLayout;
 use App\MoonShine\Pages\Dashboard;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;

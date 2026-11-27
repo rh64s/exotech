@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from "@inertiajs/vue3";
-import { catalog, login } from "@/routes";
+import { login } from "@/routes";
+import { frames, modules } from "@/routes/catalog";
 import { store as createScheme, index as schemes } from "@/routes/schemes";
 import { store, destroy } from "@/routes/wishlist";
-import {
-    formatPrice,
-    type CatalogModule,
-    type ModuleSummary,
-} from "@/widgets/catalog/modules";
+import { formatPrice, type ProductDetails } from "@/widgets/catalog/modules";
+import ProductPlaceholder from "@/assets/svg/ProductPlaceholder.vue";
 import Arrow from "@/assets/svg/Arrow.vue";
 
 const props = defineProps<{
-    product: CatalogModule & { attachment_interface: ModuleSummary | null };
-    isSaved: boolean;
+    product: ProductDetails;
+    isSaved?: boolean;
     frame: {
         id: number;
         weightLimit: number;
@@ -42,10 +40,12 @@ function changeSaved(): void {
         <Head :title="product.name" />
 
         <nav class="module-page__breadcrumb" aria-label="Навигация">
-            <Link :href="catalog()">Каталог модулей</Link>
+            <Link :href="frame ? frames() : modules()">
+                {{ frame ? "Каталог каркасов" : "Каталог модулей" }}
+            </Link>
             <span aria-hidden="true">/</span>
             <span>{{
-                product.module_type.category?.name ?? product.module_type.name
+                product.module_type.name
             }}</span>
         </nav>
 
@@ -62,36 +62,16 @@ function changeSaved(): void {
                     class="product-hero__placeholder"
                     aria-hidden="true"
                 >
-                    <svg viewBox="0 0 120 120" fill="none">
-                        <rect
-                            x="23"
-                            y="32"
-                            width="74"
-                            height="56"
-                            rx="12"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        />
-                        <path
-                            d="M23 50h74M45 32v56M75 32v56"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        />
-                    </svg>
+                    <ProductPlaceholder></ProductPlaceholder>
                     <span>EXO / MODULE</span>
                 </div>
-                <span class="product-hero__visual-label"
-                    >Модуль {{ product.module_type.name }}</span
-                >
+                <span class="product-hero__visual-label">{{
+                    product.module_type.name
+                }}</span>
             </div>
 
             <div class="product-hero__details">
-                <p class="product-hero__eyebrow">
-                    {{
-                        product.module_type.category?.name ?? "Каталог модулей"
-                    }}
-                </p>
-                <h1 id="product-title" class="product-hero__title">
+               <h1 id="product-title" class="product-hero__title">
                     {{ product.name }}
                 </h1>
                 <p class="product-hero__type">{{ product.module_type.name }}</p>
@@ -106,13 +86,13 @@ function changeSaved(): void {
                             >{{ product.weight_g }} г</span
                         >
                     </div>
-                    <div class="product-facts__item">
+                    <div v-if="!frame" class="product-facts__item">
                         <span class="product-facts__label">Зона</span>
                         <span class="product-facts__value">
                             {{ product.body_zone?.name ?? "Универсальная" }}
                         </span>
                     </div>
-                    <div class="product-facts__item">
+                    <div v-if="!frame" class="product-facts__item">
                         <span class="product-facts__label">Интерфейс</span>
                         <span class="product-facts__value">
                             {{
@@ -129,6 +109,7 @@ function changeSaved(): void {
                     </p>
                     <template v-if="$page.props.auth.user">
                         <button
+                            v-if="!frame"
                             type="button"
                             class="product-button product-button--secondary"
                             :disabled="form.processing"
@@ -137,17 +118,17 @@ function changeSaved(): void {
                         >
                             {{
                                 isSaved
-                                    ? "Убрать из сохранённых"
-                                    : "♡ Сохранить"
+                                    ? "Удалить из списка для сборки"
+                                    : "Использовать для сборок"
                             }}
                         </button>
                         <Link
-                            v-if="frame"
+                            v-else
                             :href="createScheme(frame.id)"
                             as="button"
                             class="product-button product-button--primary"
                         >
-                            Создать сборку <span aria-hidden="true">→</span>
+                            Создать сборку <Arrow></Arrow>
                         </Link>
                     </template>
                     <Link
@@ -155,7 +136,7 @@ function changeSaved(): void {
                         :href="login()"
                         class="product-button product-button--primary"
                     >
-                        Войти, чтобы начать
+                        {{ frame ? "Войти, чтобы создать сборку" : "Войти, чтобы сохранить" }}
                         <span aria-hidden="true"><Arrow></Arrow></span>
                     </Link>
                 </div>
@@ -205,8 +186,7 @@ function changeSaved(): void {
 
         <section
             v-if="
-                product.characteristics.length ||
-                product.compatible_modules.length
+                product.characteristics.length
             "
             class="product-sections"
             aria-label="Дополнительная информация"
@@ -228,27 +208,11 @@ function changeSaved(): void {
                     </div>
                 </dl>
             </section>
-
-            <section
-                v-if="product.compatible_modules.length"
-                class="info-panel"
-            >
-                <p class="section-eyebrow">Экосистема EXO</p>
-                <h2 class="section-title">Совместимые модули</h2>
-                <ul class="compatible-list">
-                    <li
-                        v-for="module in product.compatible_modules"
-                        :key="module.id"
-                    >
-                        {{ module.name }}
-                    </li>
-                </ul>
-            </section>
         </section>
 
         <section class="module-page__footer">
             <p>Подберите модули под свои задачи и соберите свой экзоскелет.</p>
-            <Link :href="catalog()"
+            <Link :href="frame ? frames() : modules()"
                 >Вернуться в каталог
                 <span aria-hidden="true"><Arrow></Arrow></span
             ></Link>
@@ -633,16 +597,6 @@ function changeSaved(): void {
 
 .spec-list dd {
     text-align: right;
-}
-
-.compatible-list {
-    margin-top: 1.6rem;
-}
-
-.compatible-list li {
-    padding: 1.2rem 1.4rem;
-    border-radius: 1rem;
-    background: var(--color-base);
 }
 
 .module-page__footer {

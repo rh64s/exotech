@@ -48,7 +48,7 @@ function submit(): void {
 
                 <label class="auth__remember">
                     <input v-model="form.remember" type="checkbox" />
-                    <span>Запомнить меня</span>
+                    <p>Запомнить меня</p>
                 </label>
 
                 <Button type="submit" :disabled="form.processing">

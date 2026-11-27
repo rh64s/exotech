@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { home, login, register, catalog, logout } from "@/routes";
+import { home, login, register, logout } from "@/routes";
+import { modules, frames } from "@/routes/catalog";
 import { Button } from "@/shared/ui";
 import { index as schemes } from "@/routes/schemes";
 
@@ -41,14 +42,17 @@ onBeforeUnmount(() => {
 <template>
     <header>
         <div class="header_div">
-            <Link :href="home.url()" class="logo text-p">ЭкзоТех</Link>
+            <Link :href="home.url()" class="logo text-p"><img src="/logo.svg"></Link>
 
             <nav class="header__auth" aria-label="Авторизация">
                 <Button :href="home.url()" variant="ghost" low-padding>
                     Главная
                 </Button>
-                <Button :href="catalog.url()" variant="ghost" low-padding>
-                    Каталог
+                <Button :href="modules.url()" variant="ghost" low-padding>
+                    Модули
+                </Button>
+                <Button :href="frames.url()" variant="ghost" low-padding>
+                    Каркасы
                 </Button>
                 <Button
                     v-if="!isGuest"
@@ -75,39 +79,6 @@ onBeforeUnmount(() => {
                     </Button>
                 </template>
             </nav>
-
-            <!-- <button
-                type="button"
-                class="header__burger"
-                :class="{ 'header__burger_open': isOpen }"
-                :aria-expanded="isOpen"
-                aria-controls="main-menu"
-                :aria-label="isOpen ? 'Закрыть меню' : 'Открыть меню'"
-                @click="toggle"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button> -->
-
-            <!-- <Transition name="menu">
-                <nav
-                    v-if="isOpen"
-                    id="main-menu"
-                    class="header__menu"
-                    aria-label="Основное меню"
-                >
-                    <Link
-                        v-for="link in navLinks"
-                        :key="link.href"
-                        :href="link.href"
-                        class="header__menu-link"
-                        @click="close"
-                    >
-                        {{ link.label }}
-                    </Link>
-                </nav>
-            </Transition> -->
         </div>
     </header>
 </template>
@@ -134,7 +105,7 @@ header {
     gap: 16px;
     background-color: rgba(from var(--color-mid) r g b / 50%);
     backdrop-filter: blur(10px);
-    padding: 16px;
+    padding: 4px 16px;
     border-radius: 16px;
     box-shadow: var(--shadow);
 }
@@ -146,8 +117,12 @@ header {
 }
 
 .logo {
-    font-weight: 700;
-    text-decoration: none;
+    width: fit-content;
+    height: fit-content;
+}
+.logo > img {
+    width: 6rem;
+    height: 6rem;
 }
 
 .header__burger {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from "@inertiajs/vue3";
-import { catalog } from "@/routes";
+import { modules } from "@/routes/catalog";
 import { index, install, remove } from "@/routes/schemes";
 
 const props = defineProps<{
@@ -65,7 +65,7 @@ function attach(slot: number, module: number) {
             <Link
                 class="underline"
                 :href="
-                    catalog({
+                    modules({
                         query: {
                             body_zones: [slot.body_zone_id],
                             interface: slot.attachment_interface_id,

@@ -1,24 +1,17 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { formatPrice } from './modules';
-
-type FilterOption = {
-    id: number;
-    name: string;
-};
-
-type CatalogFilterState = {
-    body_zones: number[];
-    types: number[];
-    categories: number[];
-    min_price: number | null;
-    max_price: number | null;
-};
+import {
+    formatPrice,
+    type CatalogFilterState,
+    type CharacteristicFilterOption,
+    type FilterOption,
+} from './modules';
 
 const props = defineProps<{
-    bodyZones: FilterOption[];
+    bodyZones?: FilterOption[];
+    frameLimits?: boolean;
     types: FilterOption[];
-    categories: FilterOption[];
+    characteristicOptions: CharacteristicFilterOption[];
     priceMin: number;
     priceMax: number;
     filters: CatalogFilterState;
@@ -44,10 +37,10 @@ const priceLabel = computed(
 );
 
 function toggleFilter(
-    key: 'body_zones' | 'types' | 'categories',
+    key: 'body_zones' | 'types' | 'characteristic_values',
     id: number,
 ): void {
-    const values = props.filters[key];
+    const values = props.filters[key] ?? [];
     const selected = values.includes(id)
         ? values.filter((value) => value !== id)
         : [...values, id];
@@ -59,11 +52,10 @@ function toggleFilter(
 }
 
 function applyPrice(): void {
-    const min = Math.max(
-        props.priceMin,
-        Math.min(minPrice.value, props.priceMax),
-    );
-    const max = Math.max(min, Math.min(maxPrice.value, props.priceMax));
+    const requestedMin = typeof minPrice.value === 'number' ? minPrice.value : props.priceMin;
+    const requestedMax = typeof maxPrice.value === 'number' ? maxPrice.value : props.priceMax;
+    const min = Math.max(props.priceMin, Math.min(requestedMin, props.priceMax));
+    const max = Math.max(min, Math.min(requestedMax, props.priceMax));
 
     minPrice.value = min;
     maxPrice.value = max;
@@ -75,6 +67,22 @@ function applyPrice(): void {
     });
 }
 
+function applyWeight(
+    key: 'max_weight_g' | 'min_total_weight_g',
+    event: Event,
+): void {
+    const input = event.target as HTMLInputElement;
+
+    if (!input.reportValidity()) {
+        return;
+    }
+
+    emit('update:filters', {
+        ...props.filters,
+        [key]: input.value === '' ? null : input.valueAsNumber,
+    });
+}
+
 function resetFilters(): void {
     minPrice.value = props.priceMin;
     maxPrice.value = props.priceMax;
@@ -82,7 +90,7 @@ function resetFilters(): void {
     emit('update:filters', {
         body_zones: [],
         types: [],
-        categories: [],
+        characteristic_values: [],
         min_price: null,
         max_price: null,
     });
@@ -106,7 +114,7 @@ function resetFilters(): void {
         <div class="catalog-filters__divider"></div>
 
         <div class="catalog-filters__groups">
-            <fieldset class="catalog-filters__group">
+            <fieldset v-if="types.length" class="catalog-filters__group">
                 <legend class="catalog-filters__label">Тип</legend>
 
                 <div class="catalog-filters__chips">
@@ -123,24 +131,7 @@ function resetFilters(): void {
                 </div>
             </fieldset>
 
-            <fieldset class="catalog-filters__group">
-                <legend class="catalog-filters__label">Категории</legend>
-
-                <div class="catalog-filters__chips">
-                    <button
-                        v-for="category in categories"
-                        :key="category.id"
-                        type="button"
-                        class="catalog-filters__chip"
-                        :aria-pressed="filters.categories.includes(category.id)"
-                        @click="toggleFilter('categories', category.id)"
-                    >
-                        {{ category.name }}
-                    </button>
-                </div>
-            </fieldset>
-
-            <fieldset class="catalog-filters__group">
+            <fieldset v-if="bodyZones?.length" class="catalog-filters__group">
                 <legend class="catalog-filters__label">Зона тела</legend>
 
                 <div class="catalog-filters__chips">
@@ -149,7 +140,7 @@ function resetFilters(): void {
                         :key="zone.id"
                         type="button"
                         class="catalog-filters__chip"
-                        :aria-pressed="filters.body_zones.includes(zone.id)"
+                        :aria-pressed="filters.body_zones?.includes(zone.id) ?? false"
                         @click="toggleFilter('body_zones', zone.id)"
                     >
                         {{ zone.name }}
@@ -168,6 +159,7 @@ function resetFilters(): void {
                         <input
                             v-model.number="minPrice"
                             type="number"
+                            step="any"
                             :min="priceMin"
                             :max="priceMax"
                             @change="applyPrice"
@@ -178,6 +170,7 @@ function resetFilters(): void {
                         <input
                             v-model.number="maxPrice"
                             type="number"
+                            step="any"
                             :min="priceMin"
                             :max="priceMax"
                             @change="applyPrice"
@@ -188,6 +181,58 @@ function resetFilters(): void {
                 <div class="catalog-filters__bounds">
                     <span>{{ formatPrice(priceMin) }} ₽</span>
                     <span>{{ formatPrice(priceMax) }} ₽</span>
+                </div>
+            </fieldset>
+
+            <fieldset v-if="frameLimits" class="catalog-filters__group">
+                <legend class="catalog-filters__label">Масса и лимит сборки</legend>
+
+                <div class="catalog-filters__price-inputs">
+                    <label>
+                        <span>Масса каркаса до, г</span>
+                        <input
+                            :value="filters.max_weight_g ?? ''"
+                            type="number"
+                            min="0"
+                            step="1"
+                            @change="applyWeight('max_weight_g', $event)"
+                        />
+                    </label>
+                    <label>
+                        <span>Лимит массы сборки от, г</span>
+                        <input
+                            :value="filters.min_total_weight_g ?? ''"
+                            type="number"
+                            min="0"
+                            step="1"
+                            @change="applyWeight('min_total_weight_g', $event)"
+                        />
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset
+                v-for="characteristic in characteristicOptions"
+                :key="characteristic.id"
+                class="catalog-filters__group"
+            >
+                <legend class="catalog-filters__label">
+                    {{ characteristic.name }}{{
+                        characteristic.unit ? `, ${characteristic.unit}` : ''
+                    }}
+                </legend>
+
+                <div class="catalog-filters__chips">
+                    <button
+                        v-for="value in characteristic.values"
+                        :key="value.id"
+                        type="button"
+                        class="catalog-filters__chip"
+                        :aria-pressed="filters.characteristic_values.includes(value.id)"
+                        @click="toggleFilter('characteristic_values', value.id)"
+                    >
+                        {{ value.label }}
+                    </button>
                 </div>
             </fieldset>
         </div>
@@ -294,10 +339,11 @@ function resetFilters(): void {
 
 .catalog-filters__chip {
     display: inline-flex;
-    height: 3.4rem;
+    min-height: 3.4rem;
+    max-width: 100%;
     align-items: center;
     justify-content: center;
-    padding: 0 1.4rem;
+    padding: 0.6rem 1.4rem;
     border: 0;
     border-radius: 1.7rem;
     background-color: var(--color-chip);
@@ -306,6 +352,7 @@ function resetFilters(): void {
     font-size: 1.3rem;
     font-weight: 500;
     line-height: 1.8rem;
+    overflow-wrap: anywhere;
     cursor: pointer;
     transition:
         background-color 0.2s ease,
@@ -369,6 +416,7 @@ function resetFilters(): void {
 @media (max-width: 980px) {
     .catalog-filters {
         width: 100%;
+        position: static;
     }
 }
 </style>

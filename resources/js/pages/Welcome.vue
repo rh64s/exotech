@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { catalog } from '@/routes';
+import { frames, modules } from '@/routes/catalog';
 import { ref } from 'vue';
 import Button from '@/shared/ui/Button.vue';
 import {
@@ -136,8 +136,8 @@ const supportTypes: SupportType[] = [
                         Сохраняйте прототипы и возвращайтесь к своим идеям.
                     </p>
                     <div class="welcome-hero__actions">
-                        <Button :href="catalog.url()">Собрать экзоскелет</Button>
-                        <Link :href="catalog()" class="text-link">Смотреть каталог <Arrow /></Link>
+                        <Button :href="frames.url()">Собрать экзоскелет</Button>
+                        <Link :href="modules()" class="text-link">Смотреть модули <Arrow /></Link>
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@ const supportTypes: SupportType[] = [
                         Конфигуратор поможет проверить совместимость<br />
                         и сохранить сборку как прототип.
                     </p>
-                    <Button :href="catalog.url()">Начать сборку</Button>
+                    <Button :href="frames.url()">Начать сборку</Button>
                 </div>
 
                 <ConfiguratorPreview />
@@ -195,7 +195,7 @@ const supportTypes: SupportType[] = [
                         под себя.
                     </p>
                 </div>
-                <Link :href="catalog()" class="text-link">Весь каталог <Arrow /></Link>
+                <Link :href="modules()" class="text-link">Каталог модулей <Arrow /></Link>
             </div>
 
             <div class="ready-builds__toolbar">

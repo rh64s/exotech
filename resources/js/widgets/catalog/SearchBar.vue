@@ -1,29 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import CatalogSearch from '@/assets/svg/CatalogSearch.vue';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         placeholder?: string;
+        label?: string;
+        search: string;
     }>(),
     {
         placeholder: 'Найти модуль, например «привод колена»',
+        label: 'Поиск по каталогу модулей',
     },
 );
 
-const query = ref('');
+const emit = defineEmits<{ search: [query: string] }>();
+const query = ref(props.search);
+watch(
+    () => props.search,
+    (search) => {
+        query.value = search;
+    },
+);
 </script>
 
 <template>
-    <label class="catalog-search">
+    <form
+        class="catalog-search"
+        role="search"
+        @submit.prevent="emit('search', query.trim())"
+    >
         <CatalogSearch />
         <input
             v-model="query"
             type="search"
+            maxlength="100"
             :placeholder="placeholder"
-            aria-label="Поиск по каталогу модулей"
+            :aria-label="label"
         />
-    </label>
+        <button type="submit">Найти</button>
+    </form>
 </template>
 
 <style scoped>

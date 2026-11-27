@@ -3,16 +3,13 @@
         <div class="footer_content">
             <div class="footer__top">
                 <div class="footer__brand">
-                    <span class="footer__logo">ЭКЗО</span>
+                    <img src="/favicon.svg">
                     <span class="footer__tagline">
                         Технология под ваше движение.
                     </span>
                 </div>
 
                 <nav class="footer__nav" aria-label="Подвал">
-                    <a href="#">Конфигуратор</a>
-                    <a href="#">Каталог</a>
-                    <a href="#">О проекте</a>
                 </nav>
             </div>
 
@@ -34,7 +31,7 @@ footer {
 
 .footer_content {
     position: relative;
-    padding: 32px 64px 24px;
+    padding: 32px 0px 24px;
 }
 
 .footer_content::before {
@@ -58,7 +55,12 @@ footer {
 .footer__brand {
     display: flex;
     align-items: baseline;
+    flex-direction: column;
     gap: 12px;
+}
+.footer__brand > img {
+    width: 20rem;
+    height: 20rem;
 }
 
 .footer__logo {
